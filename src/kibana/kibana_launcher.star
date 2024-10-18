@@ -1,8 +1,6 @@
 SERVICE_NAME = "kibana"
 
-
-KIBANA_YML_ARTIFACT_PATH = "/configs/kibana/kibana.yml"
-KIBANA_YML_ARTIFACT_NAME = "kibana_yml"
+KIBANA_CONF_ARTIFACT_NAME = "kibana_conf"
 
 def launch_kibana(plan, elasticsearch_url, base_path=""):
     plan.add_service(
@@ -15,7 +13,7 @@ def get_config(plan, elasticsearch_url, base_path=""):
     files = {}
     if base_path:
         kibana_yml = get_kibana_config_file(plan=plan, base_path=base_path)
-        files["/usr/share/kibana/config/kibana.yml"] = kibana_yml
+        files["/usr/share/kibana/config"] = kibana_yml
 
     return ServiceConfig(
         image = "docker.elastic.co/kibana/kibana:7.14.2",
@@ -34,14 +32,14 @@ def get_kibana_config_file(plan, base_path):
 
     kibana_yml = plan.render_templates(
         config = {
-            KIBANA_YML_ARTIFACT_PATH: struct(
+            "kibana.yml": struct(
                 template='server.basePath: "{{.base_path}}"\nserver.rewriteBasePath: true',
                 data={
                     base_path: base_path
                 },
             ),
         },
-        name = KIBANA_YML_ARTIFACT_NAME,
+        name = KIBANA_CONF_ARTIFACT_NAME,
         description = "Kibana configuration"  
     )
 
