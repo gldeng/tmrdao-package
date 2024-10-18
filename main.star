@@ -4,7 +4,7 @@ kibana = import_module("./src/kibana/kibana_launcher.star")
 redis_module = import_module("github.com/kurtosis-tech/redis-package/main.star")
 mongodb_module = import_module("github.com/kurtosis-tech/mongodb-package/main.star")
 rabbitmq_module = import_module("github.com/kurtosis-tech/rabbitmq-package/main.star")
-
+kafka_module = import_module("./src/kafka/kafka_launcher.star")
 
 def run(plan):
     elasticsearch_url = elasticsearch.launch_elasticsearch(plan)
