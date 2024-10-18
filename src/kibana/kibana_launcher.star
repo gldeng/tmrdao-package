@@ -2,6 +2,16 @@ SERVICE_NAME = "kibana"
 
 KIBANA_CONF_ARTIFACT_NAME = "kibana_conf"
 
+KIBANA_YML_TEMPLATE = '''
+server.host: "0"
+server.shutdownTimeout: "5s"
+elasticsearch.hosts: [ "http://elasticsearch:9200" ]
+monitoring.ui.container.elasticsearch.enabled: true
+server.basePath: "{{.base_path}}"
+server.rewriteBasePath: true
+'''
+
+
 def launch_kibana(plan, elasticsearch_url, base_path=""):
     plan.add_service(
         name = SERVICE_NAME,
@@ -33,7 +43,7 @@ def get_kibana_config_file(plan, base_path):
     kibana_yml = plan.render_templates(
         config = {
             "kibana.yml": struct(
-                template='server.basePath: "{{.base_path}}"\nserver.rewriteBasePath: true',
+                template=KIBANA_YML_TEMPLATE,
                 data={
                     base_path: base_path
                 },
