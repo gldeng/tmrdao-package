@@ -1,5 +1,3 @@
-name: github.com/gldeng/tmrdao-package
-description: |-
-  # github.com/gldeng/tmrdao-package
-  Kurtosis package for TMRDAO dev environment.
+name: my-kurtosis-package
+description: A Kurtosis package with a Redis service
 replace: {}

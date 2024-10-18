@@ -1,3 +1,5 @@
+
+elasticsearch = import_module("./src/elasticsearch/elasticsearch_launcher.star")
+
 def run(plan):
-    # TODO
-    plan.print("hello world!")
+    elasticsearch.launch_elasticsearch(plan)
