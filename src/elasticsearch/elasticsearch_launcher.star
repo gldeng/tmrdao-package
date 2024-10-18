@@ -3,6 +3,17 @@ SERVICE_NAME = "elasticsearch"
 IMAGE_NAME = "docker.elastic.co/elasticsearch/elasticsearch:7.15.1"
 
 
+def launch_elasticsearch(plan):
+    elasticsearch_service = plan.add_service(SERVICE_NAME, get_config())
+
+    elasticsearch_service_ip_address = elasticsearch_service.ip_address
+    elasticsearch_service_http_port = elasticsearch_service.ports["http"].number
+
+    return "http://{0}:{1}".format(
+        elasticsearch_service_ip_address, elasticsearch_service_http_port
+    )
+
+
 def get_config():
     return ServiceConfig(
         image = IMAGE_NAME,
@@ -27,6 +38,3 @@ def get_config():
         },
     )
 
-
-def launch_elasticsearch(plan):
-    plan.add_service(SERVICE_NAME, get_config())
