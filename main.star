@@ -9,9 +9,9 @@ rabbitmq_module = import_module("github.com/kurtosis-tech/rabbitmq-package/main.
 def run(plan):
     elasticsearch_url = elasticsearch.launch_elasticsearch(plan)
     kibana.launch_kibana(plan, elasticsearch_url, "/kibana")
-    redis_info = redis_module.run(plan)
+    redis_info = redis_module.run(plan, {})
     redis_url = redis_info.url
-    mongodb_info = mongodb_module.run(plan)
+    mongodb_info = mongodb_module.run(plan, {})
     mongodb_url = mongodb_info.url
     rabbitmq_info = rabbitmq_module.run(plan, {
         "rabbitmq_num_nodes": 1,
