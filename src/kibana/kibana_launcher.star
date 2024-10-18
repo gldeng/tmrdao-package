@@ -7,10 +7,10 @@ KIBANA_YML_ARTIFACT_NAME = "kibana_yml"
 def launch_kibana(plan, elasticsearch_url, base_path=""):
     plan.add_service(
         name = SERVICE_NAME,
-        config = get_config(elasticsearch_url, base_path)
+        config = get_config(plan, elasticsearch_url, base_path)
     )
 
-def get_config(elasticsearch_url, base_path=""):
+def get_config(plan, elasticsearch_url, base_path=""):
 
     files = {}
     if base_path:
