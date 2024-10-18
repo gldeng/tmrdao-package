@@ -17,5 +17,5 @@ def run(plan):
         "rabbitmq_num_nodes": 1,
         "rabbitmq_image": "rabbitmq:3.13-management"
     })
-    // TODO: Prefix management ui
+    # TODO: Prefix management ui
     kafka_bootstrap_server_host_port = kafka_module.launch_kafka(plan)
