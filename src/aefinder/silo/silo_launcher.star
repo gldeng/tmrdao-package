@@ -2,7 +2,7 @@ SERVICE_NAME = "aefinder-silo"
 
 IMAGE_NAME = "aefinder/aefinder-silo:master-202409300916"
 
-APPSETTINGS_TEMPLATE_FILE = "./static_files/aefinder/silo/appsettings.json.template"
+APPSETTINGS_TEMPLATE_FILE = "/static_files/aefinder/silo/appsettings.json.template"
 
 
 def launch_aefinder_silo(plan, redis_url, mongodb_url, elasticsearch_url, kafka_host_port, rabbitmq_node_names):
