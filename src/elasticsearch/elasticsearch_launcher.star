@@ -1,25 +1,14 @@
-
-shared_utils = import_module("./src/shared_utils/shared_utils.star")
-
 SERVICE_NAME = "elasticsearch"
 
 IMAGE_NAME = "docker.elastic.co/elasticsearch/elasticsearch:7.15.1"
 
-HTTP_PORT_ID = "http"
-HTTP_PORT_NUMBER_UINT16 = 9200
-
-USED_PORTS = {
-    HTTP_PORT_ID: shared_utils.new_port_spec(
-        HTTP_PORT_NUMBER_UINT16,
-        shared_utils.TCP_PROTOCOL,
-        shared_utils.HTTP_APPLICATION_PROTOCOL,
-    )
-}
 
 def get_config():
     return ServiceConfig(
         image = IMAGE_NAME,
-        ports = USED_PORTS,
+        ports = {
+            "http": PortSpec(9200)
+        },
         env_vars = {
             "ES_JAVA_OPTS": "-Xms1g -Xmx4g",
             "network.host": "0.0.0.0",
