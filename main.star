@@ -27,5 +27,5 @@ def run(plan):
         mongodb_url, 
         elasticsearch_url, 
         kafka_bootstrap_server_host_port, 
-        rabbitmq_node_names
+        rabbitmq_node_names["node_names"]
     )
