@@ -14,6 +14,6 @@ def run(plan):
     mongodb_info = mongodb_module.run(plan)
     mongodb_url = mongodb_info.url
     rabbitmq_info = rabbitmq_module.run(plan, {
-        rabbitmq_num_nodes: 1,
-        rabbitmq_image: "rabbitmq:3.13-management"
+        "rabbitmq_num_nodes": 1,
+        "rabbitmq_image": "rabbitmq:3.13-management"
     })
