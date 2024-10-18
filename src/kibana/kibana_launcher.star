@@ -14,7 +14,8 @@ def get_config(plan, elasticsearch_url, base_path=""):
 
     files = {}
     if base_path:
-        files["/usr/share/kibana/config/kibana.yml"] = get_kibana_config_file(plan=plan, base_path=base_path)
+        get_kibana_config_file(plan=plan, base_path=base_path)
+        files["/usr/share/kibana/config/kibana.yml"] = KIBANA_YML_ARTIFACT_PATH
 
     return ServiceConfig(
         image = "docker.elastic.co/kibana/kibana:7.14.2",
