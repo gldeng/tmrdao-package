@@ -1,4 +1,6 @@
 
+shared_utils = import_module("./src/shared_utils/shared_utils.star")
+
 SERVICE_NAME = "elasticsearch"
 
 IMAGE_NAME = "docker.elastic.co/elasticsearch/elasticsearch:7.15.1"
