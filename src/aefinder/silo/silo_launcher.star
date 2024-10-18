@@ -7,7 +7,7 @@ APPSETTINGS_TEMPLATE_FILE = "./static_files/aefinder/silo/appsettings.json.templ
 
 def launch_aefinder_silo(plan, redis_url, mongodb_url, elasticsearch_url, kafka_host_port, rabbitmq_node_names):
     config = get_config(plan, redis_url, mongodb_url, elasticsearch_url, kafka_host_port, rabbitmq_node_names)
-    plan.add_service(config)
+    plan.add_service(SERVICE_NAME, config)
 
 
 def get_config(plan, redis_url, mongodb_url, elasticsearch_url, kafka_host_port, rabbitmq_node_names):
