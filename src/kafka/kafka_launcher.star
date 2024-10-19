@@ -17,9 +17,17 @@ def launch_kafka(plan):
         },
         env_vars = {
             "KAFKA_BROKER_ID": "0",
-            "KAFKA_ZOOKEEPER_CONNECT": f"{zookeeper_service.hostname}:{ZOOKEEPER_PORT}/kafka",
-            "KAFKA_ADVERTISED_LISTENERS": f"PLAINTEXT://{SERVICE_NAME}:{KAFKA_PORT}",
-            "KAFKA_LISTENERS": f"PLAINTEXT://0.0.0.0:{KAFKA_PORT}",
+            "KAFKA_ZOOKEEPER_CONNECT": "{hostname}:{port}/kafka".format(
+                hostname=zookeeper_service.hostname,
+                port=ZOOKEEPER_PORT
+            ),
+            "KAFKA_ADVERTISED_LISTENERS": "PLAINTEXT://{hostname}:{port}".format(
+                hostname=SERVICE_NAME,
+                port=KAFKA_PORT
+            ),
+            "KAFKA_LISTENERS": "PLAINTEXT://0.0.0.0:{port}".format(
+                port=KAFKA_PORT
+            ),
             "TZ": "UTC",  # This replaces the volume mount for /etc/localtime
         },
     )
@@ -38,4 +46,7 @@ def launch_kafka(plan):
         service_name=SERVICE_NAME,
     )
 
-    return f"{kafka_service.hostname}:{KAFKA_PORT}"
+    return "{hostname}:{port}".format(
+        hostname=kafka_service.hostname,
+        port=KAFKA_PORT
+    )
