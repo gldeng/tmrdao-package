@@ -7,7 +7,7 @@ rabbitmq_module = import_module("github.com/kurtosis-tech/rabbitmq-package/main.
 kafka_module = import_module("./src/kafka/kafka_launcher.star")
 aefinder_silo_module = import_module("./src/aefinder/silo/silo_launcher.star")
 
-def run(plan):
+def run(plan, advertised_ip):
     elasticsearch_url = elasticsearch.launch_elasticsearch(plan)
     kibana.launch_kibana(plan, elasticsearch_url, "/kibana")
     redis_info = redis_module.run(plan)
@@ -23,9 +23,10 @@ def run(plan):
 
     aefinder_silo_module.launch_aefinder_silo(
         plan,
-        redis_url, 
-        mongodb_url, 
-        elasticsearch_url, 
-        kafka_bootstrap_server_host_port, 
-        rabbitmq_node_names["node_names"]
+        advertised_ip,
+        redis_url=redis_url, 
+        mongodb_url=mongodb_url, 
+        elasticsearch_url=elasticsearch_url, 
+        kafka_bootstrap_server_host_port=kafka_bootstrap_server_host_port, 
+        rabbitmq_node_names=rabbitmq_node_names["node_names"]
     )
