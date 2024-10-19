@@ -53,7 +53,7 @@ def launch_aefinder_silo(
         entrypoint = [
             "/bin/sh", 
             "-c", 
-            "cp /app/config/appsettings.json /app/appsettings.json && dotnet AeFinder.Silo.dll"
+            "cp /app/config/appsettings.json /app/appsettings.json && cat /app/appsettings.json && dotnet AeFinder.Silo.dll"
         ],
     )
     plan.add_service(SERVICE_NAME, config)
