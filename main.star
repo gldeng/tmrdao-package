@@ -1,4 +1,3 @@
-
 elasticsearch = import_module("./src/elasticsearch/elasticsearch_launcher.star")
 kibana = import_module("./src/kibana/kibana_launcher.star")
 redis_module = import_module("github.com/kurtosis-tech/redis-package/main.star")
@@ -6,6 +5,7 @@ mongodb_module = import_module("./src/mongodb/mongodb_launcher.star")
 rabbitmq_module = import_module("github.com/kurtosis-tech/rabbitmq-package/main.star")
 kafka_module = import_module("./src/kafka/kafka_launcher.star")
 aefinder_silo_module = import_module("./src/aefinder/silo/silo_launcher.star")
+zookeeper_module = import_module("./src/zookeeper/zookeeper_launcher.star")
 
 def run(plan, advertised_ip):
     elasticsearch_url = elasticsearch.launch_elasticsearch(plan)
@@ -19,7 +19,8 @@ def run(plan, advertised_ip):
         "rabbitmq_image": "rabbitmq:3.13-management",
         "rabbitmq_vhost": "/"
     })
-    # TODO: Prefix management ui
+
+    zookeeper_service = zookeeper_module.launch_zookeeper(plan)
     kafka_bootstrap_server_host_port = kafka_module.launch_kafka(plan)
 
     aefinder_silo_module.launch_aefinder_silo(

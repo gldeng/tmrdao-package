@@ -1,14 +1,41 @@
-flink_kafka_module = import_module("github.com/kurtosis-tech/awesome-kurtosis/flink-kafka-example/kurtosis-package/main.star@7c449fea3cad317ff38dbe98aa537b08e2e0b605")
-
-
+SERVICE_NAME = "kafka1"
+IMAGE_NAME = "wurstmeister/kafka"
+KAFKA_PORT = 9091
+ZOOKEEPER_SERVICE_NAME = "zookeeper"
+ZOOKEEPER_PORT = 2181
 
 def launch_kafka(plan):
-    ### Start the Kafka cluster: first Zookeeper then Kafka itself
-    flink_kafka_module.create_service_zookeeper(plan, flink_kafka_module.ZOOKEEPER_SERVICE_NAME, flink_kafka_module.ZOOKEEPER_IMAGE, flink_kafka_module.ZOOKEEPER_PORT_NUMBER)
-    flink_kafka_module.create_service_kafka(plan, flink_kafka_module.KAFKA_SERVICE_NAME, flink_kafka_module.ZOOKEEPER_SERVICE_NAME, flink_kafka_module.KAFKA_SERVICE_PORT_INTERNAL_NUMBER, flink_kafka_module.KAFKA_SERVICE_PORT_EXTERNAL_NUMBER)
+    zookeeper_service = plan.get_service(ZOOKEEPER_SERVICE_NAME)
 
-    ### Check that the Kafka Cluster is ready:
-    kafka_bootstrap_server_host_port = "%s:%d" % (flink_kafka_module.KAFKA_SERVICE_NAME, flink_kafka_module.KAFKA_SERVICE_PORT_EXTERNAL_NUMBER)
-    flink_kafka_module.check_kafka_is_ready(plan, flink_kafka_module.KAFKA_SERVICE_NAME, flink_kafka_module.KAFKA_SERVICE_PORT_EXTERNAL_NUMBER)
+    config = ServiceConfig(
+        image = IMAGE_NAME,
+        ports = {
+            "kafka": PortSpec(KAFKA_PORT),
+        },
+        public_ports = {
+            "kafka": PortSpec(KAFKA_PORT),
+        },
+        env_vars = {
+            "KAFKA_BROKER_ID": "0",
+            "KAFKA_ZOOKEEPER_CONNECT": f"{zookeeper_service.hostname}:{ZOOKEEPER_PORT}/kafka",
+            "KAFKA_ADVERTISED_LISTENERS": f"PLAINTEXT://{SERVICE_NAME}:{KAFKA_PORT}",
+            "KAFKA_LISTENERS": f"PLAINTEXT://0.0.0.0:{KAFKA_PORT}",
+            "TZ": "UTC",  # This replaces the volume mount for /etc/localtime
+        },
+    )
+    
+    kafka_service = plan.add_service(SERVICE_NAME, config)
+    
+    # Wait for Kafka to be ready
+    plan.wait(
+        recipe=ExecRecipe(
+            command=["/bin/sh", "-c", f"kafka-topics.sh --bootstrap-server localhost:{KAFKA_PORT} --list"],
+        ),
+        field="code",
+        assertion="==",
+        target_value=0,
+        timeout="2m",
+        service_name=SERVICE_NAME,
+    )
 
-    return kafka_bootstrap_server_host_port
+    return f"{kafka_service.hostname}:{KAFKA_PORT}"
