@@ -68,7 +68,7 @@
           "HostName": "{{ .RabbitMqHost }}",
           "Port": "{{ .RabbitMqPort }}",
           "UserName": "admin",
-          "Password": "admin123"
+          "Password": "admin"
         }
       },
       "EventBus": {
