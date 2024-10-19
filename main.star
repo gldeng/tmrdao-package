@@ -27,6 +27,6 @@ def run(plan, advertised_ip):
         redis_url=redis_url, 
         mongodb_url=mongodb_url, 
         elasticsearch_url=elasticsearch_url, 
-        kafka_bootstrap_server_host_port=kafka_bootstrap_server_host_port, 
+        kafka_host_port=kafka_bootstrap_server_host_port, 
         rabbitmq_node_names=rabbitmq_node_names["node_names"]
     )
