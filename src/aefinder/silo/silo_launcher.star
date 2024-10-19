@@ -43,12 +43,12 @@ def launch_aefinder_silo(
             "/app/config": artifact_name,
         },
         ports={
-            "gateway": PortSpec(number=gateway_port, protocol="tcp"),
-            "silo": PortSpec(number=silo_port, protocol="tcp"),
+            "gateway": PortSpec(number=gateway_port),
+            "silo": PortSpec(number=silo_port),
         },
         public_ports={
-            "gateway": gateway_port,
-            "silo": silo_port,
+            "gateway": PortSpec(number=gateway_port),
+            "silo": PortSpec(number=silo_port),
         },
         entrypoint = [
             "/bin/sh", 
