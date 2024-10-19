@@ -37,7 +37,13 @@ def launch_kafka(plan):
     # Wait for Kafka to be ready
     plan.wait(
         recipe=ExecRecipe(
-            command=["/bin/sh", "-c", f"kafka-topics.sh --bootstrap-server localhost:{KAFKA_PORT} --list"],
+            command=[
+                "/bin/sh",
+                "-c",
+                "kafka-topics.sh --bootstrap-server localhost:{port} --list".format(
+                    port=KAFKA_PORT
+                )
+            ],
         ),
         field="code",
         assertion="==",
