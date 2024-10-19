@@ -16,7 +16,8 @@ def run(plan, advertised_ip):
     mongodb_url = mongodb_info.url
     rabbitmq_node_names = rabbitmq_module.run(plan, {
         "rabbitmq_num_nodes": 1,
-        "rabbitmq_image": "rabbitmq:3.13-management"
+        "rabbitmq_image": "rabbitmq:3.13-management",
+        "rabbitmq_vhost": "/"
     })
     # TODO: Prefix management ui
     kafka_bootstrap_server_host_port = kafka_module.launch_kafka(plan)
