@@ -30,6 +30,9 @@ def get_config(plan, elasticsearch_url, base_path=""):
         ports = {
             "http": PortSpec(5601, transport_protocol = "TCP")
         },
+        public_ports = {
+            "http": PortSpec(5601, transport_protocol = "TCP")
+        },
         env_vars = {
             "ELASTICSEARCH_HOSTS": elasticsearch_url,
             "SERVER_BASEPATH": base_path
