@@ -23,6 +23,8 @@ def run(plan, advertised_ip):
     zookeeper_service = zookeeper_module.launch_zookeeper(plan)
     kafka_bootstrap_server_host_port = kafka_module.launch_kafka(plan)
 
+    aefinder_dbmigrator_module.run_dbmigrator(plan, mongodb_url)
+
     aefinder_silo_module.launch_aefinder_silo(
         plan,
         advertised_ip,
