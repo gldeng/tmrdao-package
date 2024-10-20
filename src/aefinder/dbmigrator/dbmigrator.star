@@ -15,7 +15,7 @@ def run_dbmigrator(plan, mongodb_url):
         },
     )
     result = plan.run_sh(
-        run = "cp /app/config/appsettings.json /app/appsettings.json && dotnet AEFinder.DbMigrator.dll",
+        run = "cp /app/config/appsettings.json /app/appsettings.json && sh -c 'dotnet /app/AEFinder.DbMigrator.dll'",
         name = "aefinder-dbmigrator",
         image = IMAGE_NAME,
 
