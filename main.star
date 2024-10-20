@@ -4,6 +4,7 @@ redis_module = import_module("github.com/kurtosis-tech/redis-package/main.star")
 mongodb_module = import_module("./src/mongodb/mongodb_launcher.star")
 rabbitmq_module = import_module("github.com/kurtosis-tech/rabbitmq-package/main.star")
 kafka_module = import_module("./src/kafka/kafka_launcher.star")
+aefinder_dbmigrator_module = import_module("./src/aefinder/dbmigrator/dbmigrator.star")
 aefinder_silo_module = import_module("./src/aefinder/silo/silo_launcher.star")
 zookeeper_module = import_module("./src/zookeeper/zookeeper_launcher.star")
 
