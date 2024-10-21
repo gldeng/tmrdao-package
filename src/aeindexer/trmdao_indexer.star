@@ -125,12 +125,16 @@ if __name__ == '__main__':
         app_id=sys.argv[5],
         app_name=sys.argv[6]
     )
+    deploy_key = client.deploy_key
+    with open('/tmp/deploy_key.txt', 'w') as f:
+        f.write(deploy_key)
     app_version = client.create_subscription()
     with open('/tmp/app_version.txt', 'w') as f:
         f.write(app_version)
 '''
 
 APP_VERSION_ARTIFACT_NAME = "app_version"
+DEPLOY_KEY_ARTIFACT_NAME = "deploy_key"
 
 def create_trmdao_indexer(
     plan,
@@ -172,6 +176,7 @@ def create_trmdao_indexer(
         },
         store = [
             StoreSpec(src = "/tmp/app_version.txt", name = APP_VERSION_ARTIFACT_NAME),
+            StoreSpec(src = "/tmp/deploy_key.txt", name = DEPLOY_KEY_ARTIFACT_NAME),
         ]
     )
     return result.file_artifacts
