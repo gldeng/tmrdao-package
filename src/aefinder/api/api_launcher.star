@@ -49,7 +49,7 @@ def launch_api(
         entrypoint = [
             "/bin/sh", 
             "-c", 
-            "cp /app/config/* /app/ && cat /app/appsettings.json && cp /app/dll_overwrite/AeFinder.Application.dll /app/ && dotnet AeFinder.HttpApi.Host.dll"
+            "cp /app/config/* /app/ && cat /app/appsettings.json && mkdir -p /app/KubeConfig && cp /app/kubeconfig.yml /app/KubeConfig/config.txt && cp /app/dll_overwrite/AeFinder.Application.dll /app/ && dotnet AeFinder.HttpApi.Host.dll"
         ],
     ))
     return "http://{host}:{port}".format(host=SERVICE_NAME, port=api_port)
