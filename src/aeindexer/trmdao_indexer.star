@@ -131,11 +131,11 @@ class AeFinderClient(AeFinderClientBase):
             'Code': ('/app/dlls/TomorrowDAOIndexer.dll', open('/app/dlls/TomorrowDAOIndexer.dll', 'rb'))
         }
 
-        requests_log.setLevel(logging.WARNING)
-        requests_log.propagate = True
+        # Disable HTTP request logging
+        HTTPConnection.debuglevel = 0
         subscription_response = requests.post(f'{self.api_url}/api/apps/subscriptions', headers=subscription_headers, files=files)
-        requests_log.setLevel(logging.DEBUG)
-        requests_log.propagate = True
+        if subscription_response.status_code != 200:
+            raise Exception(f"Failed to create subscription: {subscription_response.text}")
         app_version = subscription_response.json()['appVersion']
         return app_version
 
