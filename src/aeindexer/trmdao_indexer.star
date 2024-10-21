@@ -100,7 +100,8 @@ class AeFinderClient(AeFinderClientBase):
             self._create_app()
         return self._deploy_key
 
-    def create_subscription(self):
+    def _get_appuser_token(self):
+
         deploy_key = self.deploy_key
 
         token_data = {
@@ -111,11 +112,15 @@ class AeFinderClient(AeFinderClientBase):
         }
 
         token_response = requests.post(f'{self.authserver_url}/connect/token', data=token_data)
-        new_token = token_response.json()['access_token']
+        token = token_response.json()['access_token']
+        return token
+
+    def create_subscription(self):
+        appuser_token = self._get_appuser_token()
 
         # Create subscription
         subscription_headers = {
-            'Authorization': f'Bearer {new_token}'
+            'Authorization': f'Bearer {appuser_token}'
         }
 
         with open('/app/json/manifest.json', 'r') as file:
