@@ -70,7 +70,7 @@ class AeFinderClient(AeFinderClientBase):
             org_id = file.read()
         return org_id
 
-    def _create_app(self, organization_id):
+    def _create_app(self):
         token = self._get_user_token()
         organization_id = self.get_org_id()
         headers = {
