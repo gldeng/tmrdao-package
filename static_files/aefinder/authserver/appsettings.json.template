@@ -16,7 +16,7 @@
     "IssuerUri": "http://{{ .Host }}:{{ .Port }}"
   },
   "ConnectionStrings": {
-    "Default": "{{ .MongoDbUrl }}/AeFinder"
+    "Default": "{{ .MongoDbUrl }}AeFinder"
   },
   "Redis": {
     "Configuration": "{{ .RedisHostPort }}"

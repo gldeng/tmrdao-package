@@ -32,7 +32,7 @@
     "MaxAppAttachmentSize": 125829120
   },
   "ConnectionStrings": {
-    "Default": "{{ .MongoDbUrl }}/AeFinder"
+    "Default": "{{ .MongoDbUrl }}AeFinder"
   },
   "Redis": {
     "Configuration": "{{ .RedisHostPort }}"
