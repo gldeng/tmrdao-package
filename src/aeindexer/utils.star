@@ -2,6 +2,8 @@ PYTHON_SCRIPT = '''
 import requests
 import json
 import os
+import sys
+import traceback
 
 class AeFinderClientBase:
     def __init__(
@@ -15,6 +17,7 @@ class AeFinderClientBase:
         self.api_url = api_url
         self.appuser_username = appuser_username
         self.appuser_password = appuser_password
+        self._org_id = None
 
     def _get_user_token(self):
         token_url = f"http://{self.authserver_url}/connect/token"
@@ -100,35 +103,39 @@ class AeFinderClient(AeFinderClientBase):
 
 
 if __name__ == "__main__":
-    import sys
-
-    if len(sys.argv) != 9:
-        print("Usage: python script.py <authserver_url> <api_url> <root_username> <root_password> <org_name> <appuser_username> <appuser_password> <appuser_email>")
+    try:
+        if len(sys.argv) != 9:
+            raise ValueError("Incorrect number of arguments provided.")
+        
+        client = AeFinderClient(
+            authserver_url=sys.argv[1],
+            api_url=sys.argv[2],
+            root_username=sys.argv[3],
+            root_password=sys.argv[4],
+            org_name=sys.argv[5],
+            appuser_username=sys.argv[6],
+            appuser_password=sys.argv[7],
+            appuser_email=sys.argv[8]
+        )
+        client.create_org_and_user()
+        
+        # Ensure the directory exists
+        os.makedirs('/tmp', exist_ok=True)
+        
+        # Write the org_id to the file
+        with open('/tmp/org_id.txt', 'w') as f:
+            f.write(str(client.org_id))
+        
+        # Print the file contents and location for debugging
+        print(f"org_id written to /tmp/org_id.txt: {client.org_id}")
+        print(f"File contents: {open('/tmp/org_id.txt', 'r').read()}")
+        print(f"Files in /tmp: {os.listdir('/tmp')}")
+        
+    except Exception as e:
+        print(f"An error occurred: {str(e)}", file=sys.stderr)
+        print("Traceback:", file=sys.stderr)
+        traceback.print_exc(file=sys.stderr)
         sys.exit(1)
-    
-    client = AeFinderClient(
-        authserver_url=sys.argv[1],
-        api_url=sys.argv[2],
-        root_username=sys.argv[3],
-        root_password=sys.argv[4],
-        org_name=sys.argv[5],
-        appuser_username=sys.argv[6],
-        appuser_password=sys.argv[7],
-        appuser_email=sys.argv[8]
-    )
-    client.create_org_and_user()
-    
-    # Ensure the directory exists
-    os.makedirs('/tmp', exist_ok=True)
-    
-    # Write the org_id to the file
-    with open('/tmp/org_id.txt', 'w') as f:
-        f.write(str(client.org_id))
-    
-    # Print the file contents and location for debugging
-    print(f"org_id written to /tmp/org_id.txt: {client.org_id}")
-    print(f"File contents: {open('/tmp/org_id.txt', 'r').read()}")
-    print(f"Files in /tmp: {os.listdir('/tmp')}")
 '''
 
 
@@ -169,7 +176,7 @@ def create_org_and_user(
             appuser_email,
         ],
         store = [
-            # StoreSpec(src = "/tmp/org_id.txt", name = ORG_ID_ARTIFACT_NAME),
+            StoreSpec(src = "/tmp/org_id.txt", name = ORG_ID_ARTIFACT_NAME),
         ]
     )
     return result.files_artifacts

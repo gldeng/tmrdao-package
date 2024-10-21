@@ -5,6 +5,8 @@ PYTHON_SCRIPT = '''
 import requests
 import os
 import json
+import sys
+import traceback
 
 class AeFinderClientBase:
     def __init__(
@@ -46,6 +48,7 @@ class AeFinderClient(AeFinderClientBase):
         super().__init__(authserver_url, api_url, appuser_username, appuser_password)
         self.app_id = app_id
         self.app_name = app_name
+        self._deploy_key = None
 
     def get_org_id(self):
         with open('/app/org_id.txt', 'r') as file:
@@ -113,30 +116,34 @@ class AeFinderClient(AeFinderClientBase):
         return app_version
 
 if __name__ == '__main__':
-    import sys
+    try:
+        if len(sys.argv) != 7:
+            raise ValueError("Incorrect number of arguments provided.")
+            
+        client = AeFinderClient(
+            authserver_url=sys.argv[1],
+            api_url=sys.argv[2],
+            appuser_username=sys.argv[3],
+            appuser_password=sys.argv[4],
+            app_id=sys.argv[5],
+            app_name=sys.argv[6]
+        )
 
-    if len(sys.argv) != 7:
-        print("Usage: python script.py <authserver_url> <api_url> <appuser_username> <appuser_password> <app_id> <app_name>")
+        # Ensure the directory exists
+        os.makedirs('/tmp', exist_ok=True)
+
+        deploy_key = client.deploy_key
+        with open('/tmp/deploy_key.txt', 'w') as f:
+            f.write(deploy_key)
+        app_version = client.create_subscription()
+        with open('/tmp/app_version.txt', 'w') as f:
+            f.write(app_version)
+
+    except Exception as e:
+        print(f"An error occurred: {str(e)}", file=sys.stderr)
+        print("Traceback:", file=sys.stderr)
+        traceback.print_exc(file=sys.stderr)
         sys.exit(1)
-    client = AeFinderClient(
-        authserver_url=sys.argv[1],
-        api_url=sys.argv[2],
-        appuser_username=sys.argv[3],
-        appuser_password=sys.argv[4],
-        app_id=sys.argv[5],
-        app_name=sys.argv[6]
-    )
-
-    # Ensure the directory exists
-    os.makedirs('/tmp', exist_ok=True)
-
-    deploy_key = client.deploy_key
-    with open('/tmp/deploy_key.txt', 'w') as f:
-        f.write(deploy_key)
-    app_version = client.create_subscription()
-    with open('/tmp/app_version.txt', 'w') as f:
-        f.write(app_version)
-
 '''
 
 APP_VERSION_ARTIFACT_NAME = "app_version"
