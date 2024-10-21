@@ -169,7 +169,7 @@ def create_org_and_user(
             appuser_email,
         ],
         store = [
-            StoreSpec(src = "/tmp/org_id.txt", name = ORG_ID_ARTIFACT_NAME),
+            # StoreSpec(src = "/tmp/org_id.txt", name = ORG_ID_ARTIFACT_NAME),
         ]
     )
     return result.files_artifacts
