@@ -41,13 +41,26 @@ def run(plan, args):
     )
 
     # Initialize the replica set
+    init_command = [
+        "mongosh",
+        "--eval",
+        "rs.initiate({_id: 'rs0', members: [{_id: 0, host: 'localhost:27017'}]})"
+    ]
+
+    if user and password:
+        init_command = [
+            "mongosh",
+            "--authenticationDatabase", "admin",
+            "-u", user,
+            "-p", password,
+            "--eval",
+            "rs.initiate({_id: 'rs0', members: [{_id: 0, host: 'localhost:27017'}]})"
+        ]
+
     plan.exec(
         service_name=service_name,
         recipe=ExecRecipe(
-            command=[
-                "mongo", "--eval",
-                "rs.initiate({_id: 'rs0', members: [{_id: 0, host: 'localhost:27017'}]})"
-            ]
+            command=init_command
         )
     )
 
