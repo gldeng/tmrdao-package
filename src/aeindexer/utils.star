@@ -145,9 +145,7 @@ def create_org_and_user(
         run=PYTHON_SCRIPT,
         image = "python:3.11-alpine",
         packages = [
-            "requests",
-            "json",
-            "sys",
+            "requests"
         ],
         args= [
             authserver_url,

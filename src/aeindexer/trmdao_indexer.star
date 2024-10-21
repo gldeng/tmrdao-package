@@ -166,9 +166,7 @@ def create_trmdao_indexer(
             app_name,
         ],
         packages = [
-            "requests",
-            "json",
-            "sys",
+            "requests"
         ],
         files = {
             "/app/dlls/TomorrowDAOIndexer.dll": dll_artifact,
