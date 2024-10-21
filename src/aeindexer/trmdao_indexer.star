@@ -135,8 +135,8 @@ class AeFinderClient(AeFinderClientBase):
         HTTPConnection.debuglevel = 0
         subscription_response = requests.post(f'{self.api_url}/api/apps/subscriptions', headers=subscription_headers, files=files)
         if subscription_response.status_code != 200:
-            raise Exception(f"Failed to create subscription: {subscription_response.text}")
-        app_version = subscription_response.json()['appVersion']
+            raise Exception(f"Failed to create subscription: {subscription_response.content}")
+        app_version = subscription_response.content.decode('utf-8')
         return app_version
 
 if __name__ == '__main__':
