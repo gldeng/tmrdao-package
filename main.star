@@ -9,7 +9,7 @@ aefinder_dbmigrator_module = import_module("./src/aefinder/dbmigrator/dbmigrator
 aefinder_silo_module = import_module("./src/aefinder/silo/silo_launcher.star")
 aefinder_blockchain_eventhandler_module = import_module("./src/aefinder/blockchain_eventhandler/blockchain_eventhander.star")
 aefinder_eventhandler_module = import_module("./src/aefinder/eventhandler/eventhandler_launcher.star")
-
+aefinder_authserver_module = import_module("./src/aefinder/authserver/authserver_launcher.star")
 
 def run(plan, advertised_ip):
     elasticsearch_url = elasticsearch.launch_elasticsearch(plan)
@@ -47,6 +47,20 @@ def run(plan, advertised_ip):
 
     aefinder_eventhandler_module.launch_eventhandler(
         plan,
+        redis_url,
+        mongodb_url,
+        elasticsearch_url,
+        rabbitmq_node_names["node_names"]
+    )
+
+    authserver_url = aefinder_authserver_module.launch_authserver(
+        plan,
+        mongodb_url,
+        redis_url
+    )
+    aefinder_api_module.launch_api(
+        plan,
+        authserver_url,
         redis_url,
         mongodb_url,
         elasticsearch_url,
