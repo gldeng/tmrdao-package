@@ -71,4 +71,6 @@ def run(plan, advertised_ip):
     )
 
     aefinder_utils_module.create_org_and_user(plan, authserver_url, api_url)
+    # Note: confusing usage of app_id and app_name. To avoid confusion, use app_name that aligns with app_id.
+    # See: https://github.com/AeFinderProject/aefinder/blob/c1ff566e2c0ea192842d0451dbe92aa4f47ec895/src/AeFinder.Application/Apps/AppService.cs#L61-L78
     aefinder_trmdao_indexer_module.create_trmdao_indexer(plan, authserver_url, api_url, "tomorrowdao_indexer", '"TomorrowDAO Indexer"')
