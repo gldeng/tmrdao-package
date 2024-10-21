@@ -11,6 +11,8 @@ aefinder_blockchain_eventhandler_module = import_module("./src/aefinder/blockcha
 aefinder_eventhandler_module = import_module("./src/aefinder/eventhandler/eventhandler_launcher.star")
 aefinder_authserver_module = import_module("./src/aefinder/authserver/authserver_launcher.star")
 aefinder_api_module = import_module("./src/aefinder/api/api_launcher.star")
+aefinder_utils_module = import_module("./src/aeindexer/utils.star")
+aefinder_trmdao_indexer_module = import_module("./src/aeindexer/trmdao_indexer.star")
 
 def run(plan, advertised_ip):
     elasticsearch_url = elasticsearch.launch_elasticsearch(plan)
@@ -59,7 +61,7 @@ def run(plan, advertised_ip):
         mongodb_url,
         redis_url
     )
-    aefinder_api_module.launch_api(
+    api_url = aefinder_api_module.launch_api(
         plan,
         authserver_url,
         redis_url,
@@ -67,3 +69,6 @@ def run(plan, advertised_ip):
         elasticsearch_url,
         rabbitmq_node_names["node_names"]
     )
+
+    aefinder_utils_module.create_org_and_user(plan, authserver_url, api_url)
+    aefinder_trmdao_indexer_module.create_trmdao_indexer(plan, authserver_url, api_url, "trmdao", "TomorrowDAO Indexer")
