@@ -44,7 +44,7 @@ def launch_api(
         },
         files={
             "/app/config": artifact_name,
-            "/app/dll_overwrite/AeFinder.Application.dll": dll_artifact_name,
+            "/app/dll_overwrite": dll_artifact_name,
         },
         entrypoint = [
             "/bin/sh", 
