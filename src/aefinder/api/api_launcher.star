@@ -20,6 +20,7 @@ def launch_api(
             "appsettings.json": struct(
                 template=read_file(APPSETTINGS_TEMPLATE_FILE),
                 data={
+                    "AuthServerUrl": authserver_url,
                     "RedisHostPort": redis_url.split("/")[-1],
                     "MongoDbUrl": mongodb_url,
                     "ElasticsearchUrl": elasticsearch_url,
