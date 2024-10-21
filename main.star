@@ -10,6 +10,7 @@ aefinder_silo_module = import_module("./src/aefinder/silo/silo_launcher.star")
 aefinder_blockchain_eventhandler_module = import_module("./src/aefinder/blockchain_eventhandler/blockchain_eventhander.star")
 aefinder_eventhandler_module = import_module("./src/aefinder/eventhandler/eventhandler_launcher.star")
 aefinder_authserver_module = import_module("./src/aefinder/authserver/authserver_launcher.star")
+aefinder_api_module = import_module("./src/aefinder/api/api_launcher.star")
 
 def run(plan, advertised_ip):
     elasticsearch_url = elasticsearch.launch_elasticsearch(plan)
