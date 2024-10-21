@@ -106,7 +106,7 @@ class AeFinderClient(AeFinderClientBase):
         token_data = {
             'grant_type': 'client_credentials',
             'scope': 'AeFinder',
-            'client_id': 'test',
+            'client_id': self.app_id,
             'client_secret': deploy_key
         }
 
