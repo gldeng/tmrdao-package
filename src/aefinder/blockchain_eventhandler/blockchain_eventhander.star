@@ -8,8 +8,6 @@ def launch_blockchain_eventhandler(
     plan,
     redis_url,
     mongodb_url,
-    elasticsearch_url,
-    kafka_host_port,
     rabbitmq_node_names
 ):
     rabbitmq_service = plan.get_service(rabbitmq_node_names[0])
