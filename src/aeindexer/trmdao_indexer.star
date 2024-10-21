@@ -3,7 +3,8 @@ utils_module = import_module("./utils.star")
 
 PYTHON_SCRIPT = '''
 import requests
-
+import os
+import json
 
 class AeFinderClientBase:
     def __init__(
@@ -125,12 +126,17 @@ if __name__ == '__main__':
         app_id=sys.argv[5],
         app_name=sys.argv[6]
     )
+
+    # Ensure the directory exists
+    os.makedirs('/tmp', exist_ok=True)
+
     deploy_key = client.deploy_key
     with open('/tmp/deploy_key.txt', 'w') as f:
         f.write(deploy_key)
     app_version = client.create_subscription()
     with open('/tmp/app_version.txt', 'w') as f:
         f.write(app_version)
+
 '''
 
 APP_VERSION_ARTIFACT_NAME = "app_version"

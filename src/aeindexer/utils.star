@@ -1,6 +1,7 @@
 PYTHON_SCRIPT = '''
 import requests
 import json
+import os
 
 class AeFinderClientBase:
     def __init__(
@@ -116,8 +117,18 @@ if __name__ == "__main__":
         appuser_email=sys.argv[8]
     )
     client.create_org_and_user()
+    
+    # Ensure the directory exists
+    os.makedirs('/tmp', exist_ok=True)
+    
+    # Write the org_id to the file
     with open('/tmp/org_id.txt', 'w') as f:
-        f.write(client.org_id)
+        f.write(str(client.org_id))
+    
+    # Print the file contents and location for debugging
+    print(f"org_id written to /tmp/org_id.txt: {client.org_id}")
+    print(f"File contents: {open('/tmp/org_id.txt', 'r').read()}")
+    print(f"Files in /tmp: {os.listdir('/tmp')}")
 '''
 
 
