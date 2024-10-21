@@ -34,7 +34,7 @@ def launch_blockchain_eventhandler(
         entrypoint = [
             "/bin/sh", 
             "-c", 
-            "cp /app/config/appsettings.json /app/appsettings.json && cat /app/appsettings.json && dotnet AeFinder.Silo.dll"
+            "cp /app/config/appsettings.json /app/appsettings.json && cat /app/appsettings.json && dotnet AeFinder.BlockChainEventHandler.dll"
         ],
     )
     plan.add_service(SERVICE_NAME, config)
