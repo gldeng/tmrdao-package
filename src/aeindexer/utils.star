@@ -20,7 +20,7 @@ class AeFinderClientBase:
         self._org_id = None
 
     def _get_user_token(self):
-        token_url = f"http://{self.authserver_url}/connect/token"
+        token_url = f"{self.authserver_url}/connect/token"
         token_data = {
             'grant_type': 'password',
             'scope': 'AeFinder',
@@ -57,7 +57,7 @@ class AeFinderClient(AeFinderClientBase):
         return self._org_id
 
     def _get_admin_token(self):
-        token_url = f"http://{self.authserver_url}/connect/token"
+        token_url = f"{self.authserver_url}/connect/token"
         token_data = {
             'grant_type': 'password',
             'scope': 'AeFinder',
@@ -71,7 +71,7 @@ class AeFinderClient(AeFinderClientBase):
 
     def _create_organization(self):
         admin_token = self._get_admin_token()
-        org_url = f"http://{self.api_url}/api/organizations"    
+        org_url = f"{self.api_url}/api/organizations"    
         org_data = {"displayName": self.org_name}
         org_headers = {
             'Content-Type': 'application/json',
@@ -83,7 +83,7 @@ class AeFinderClient(AeFinderClientBase):
 
     def _create_user(self):
         admin_token = self._get_admin_token()
-        user_url = f"http://{self.api_url}/api/users"
+        user_url = f"{self.api_url}/api/users"
         user_data = {
             "username": self.appuser_username,
             "password": self.appuser_password,

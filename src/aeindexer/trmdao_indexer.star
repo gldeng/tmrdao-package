@@ -22,7 +22,7 @@ class AeFinderClientBase:
         self.appuser_password = appuser_password
 
     def _get_user_token(self):
-        token_url = f"http://{self.authserver_url}/connect/token"
+        token_url = f"{self.authserver_url}/connect/token"
         token_data = {
             'grant_type': 'password',
             'scope': 'AeFinder',
@@ -75,7 +75,7 @@ class AeFinderClient(AeFinderClientBase):
             "sourceCodeUrl": ""
         }
 
-        create_app_response = requests.post('http://127.0.0.1:8080/api/apps', headers=headers, data=json.dumps(app_data))
+        create_app_response = requests.post(f'{self.api_url}/api/apps', headers=headers, data=json.dumps(app_data))
         deploy_key = create_app_response.json()['deployKey']
         self._deploy_key = deploy_key
 
@@ -95,7 +95,7 @@ class AeFinderClient(AeFinderClientBase):
             'client_secret': deploy_key
         }
 
-        token_response = requests.post(f'http://{self.authserver_url}/connect/token', data=token_data)
+        token_response = requests.post(f'{self.authserver_url}/connect/token', data=token_data)
         new_token = token_response.json()['access_token']
 
         # Create subscription
@@ -111,7 +111,7 @@ class AeFinderClient(AeFinderClientBase):
             'Code': ('/app/dlls/TomorrowDAOIndexer.dll', open('/app/dlls/TomorrowDAOIndexer.dll', 'rb'))
         }
 
-        subscription_response = requests.post(f'http://{self.api_url}/api/apps/subscriptions', headers=subscription_headers, files=files)
+        subscription_response = requests.post(f'{self.api_url}/api/apps/subscriptions', headers=subscription_headers, files=files)
         app_version = subscription_response.json()['appVersion']
         return app_version
 
