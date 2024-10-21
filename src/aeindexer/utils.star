@@ -4,6 +4,21 @@ import json
 import os
 import sys
 import traceback
+import logging
+from http.client import HTTPConnection
+
+# Add these lines at the beginning of the script, after the imports
+# Set up logging
+logging.basicConfig(level=logging.DEBUG)
+
+# Enable HTTP request logging
+HTTPConnection.debuglevel = 1
+
+# Create a custom logger for requests
+requests_log = logging.getLogger("requests.packages.urllib3")
+requests_log.setLevel(logging.DEBUG)
+requests_log.propagate = True
+
 
 class AeFinderClientBase:
     def __init__(
