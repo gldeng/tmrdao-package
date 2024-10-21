@@ -36,7 +36,19 @@ def run(plan, args):
                 ),
             },
             env_vars=env_vars,
+            entrypoint=["mongod", "--bind_ip_all", "--replSet", "rs0"],
         ),
+    )
+
+    # Initialize the replica set
+    plan.exec(
+        service_name=service_name,
+        recipe=ExecRecipe(
+            command=[
+                "mongo", "--eval",
+                "rs.initiate({_id: 'rs0', members: [{_id: 0, host: 'localhost:27017'}]})"
+            ]
+        )
     )
 
     auth = ""

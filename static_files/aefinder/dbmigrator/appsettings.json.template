@@ -1,6 +1,6 @@
 {
     "ConnectionStrings": {
-      "Default": "{{ .MongoDbUrl }}AeFinder?retryWrites=false"
+      "Default": "{{ .MongoDbUrl }}AeFinder"
     },
     "App": {
       "AdminPassword": "1q2W3e*"
