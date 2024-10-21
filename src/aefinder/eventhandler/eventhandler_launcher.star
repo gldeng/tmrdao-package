@@ -1,4 +1,5 @@
 
+SERVICE_NAME = "aefinder-entityeventhandler"
 IMAGE_NAME = "aefinder/aefinder-entityeventhandler:master-202409300947"
 APPSETTINGS_TEMPLATE_FILE = "/static_files/aefinder/eventhandler/appsettings.json.template"
 
