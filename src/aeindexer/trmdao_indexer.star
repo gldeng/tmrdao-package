@@ -66,7 +66,7 @@ class AeFinderClient(AeFinderClientBase):
         self._deploy_key = None
 
     def get_org_id(self):
-        with open('/app/org_id.txt', 'r') as file:
+        with open('/app/org_id/org_id.txt', 'r') as file:
             org_id = file.read()
         return org_id
 
@@ -174,6 +174,9 @@ def create_trmdao_indexer(
     appuser_password = utils_module.DEFAULT_APPUSER_PASSWORD,
 ):
 
+    org_id_artifact = plan.get_files_artifact(
+        name = utils_module.ORG_ID_ARTIFACT_NAME
+    )
     dll_artifact = plan.upload_files(
         src = "/static_files/aeindexer/TomorrowDAOIndexer.dll",
         name = "tomorrowdao-indexer-dll",
@@ -197,8 +200,9 @@ def create_trmdao_indexer(
             "requests"
         ],
         files = {
-            "/app/dlls/TomorrowDAOIndexer.dll": dll_artifact,
-            "/app/json/manifest.json": manifest_artifact,
+            "/app/org_id": org_id_artifact,
+            "/app/dlls": dll_artifact,
+            "/app/json": manifest_artifact,
         },
         store = [
             StoreSpec(src = "/tmp/app_version.txt", name = APP_VERSION_ARTIFACT_NAME),
