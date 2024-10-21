@@ -71,4 +71,4 @@ def run(plan, advertised_ip):
     )
 
     aefinder_utils_module.create_org_and_user(plan, authserver_url, api_url)
-    aefinder_trmdao_indexer_module.create_trmdao_indexer(plan, authserver_url, api_url, "trmdao", '"TomorrowDAO Indexer"')
+    aefinder_trmdao_indexer_module.create_trmdao_indexer(plan, authserver_url, api_url, "tomorrowdao_indexer", '"TomorrowDAO Indexer"')
