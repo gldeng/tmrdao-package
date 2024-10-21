@@ -163,4 +163,4 @@ def create_org_and_user(
             StoreSpec(src = "/tmp/org_id.txt", name = ORG_ID_ARTIFACT_NAME),
         ]
     )
-    return result.file_artifacts
+    return result.files_artifacts

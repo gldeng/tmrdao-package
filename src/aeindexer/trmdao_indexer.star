@@ -179,4 +179,4 @@ def create_trmdao_indexer(
             StoreSpec(src = "/tmp/deploy_key.txt", name = DEPLOY_KEY_ARTIFACT_NAME),
         ]
     )
-    return result.file_artifacts
+    return result.files_artifacts
