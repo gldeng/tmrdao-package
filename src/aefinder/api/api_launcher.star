@@ -51,3 +51,4 @@ def launch_api(
             "cp /app/config/* /app/ && cat /app/appsettings.json && dotnet AeFinder.HttpApi.Host.dll"
         ],
     ))
+    return "http://{host}:{port}".format(host=SERVICE_NAME, port=api_port)
