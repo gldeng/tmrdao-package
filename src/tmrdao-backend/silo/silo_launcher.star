@@ -1,6 +1,6 @@
-SERVICE_NAME = "tmrdao-silo"
+SERVICE_NAME = "tmrdao-backend-silo"
 
-IMAGE_NAME = "gldeng/tomorrowdaoserver.silo:sha-5d1c36e"
+IMAGE_NAME = "gldeng/tomorrowdaoserver.silo:sha-2306140"
 
 APPSETTINGS_TEMPLATE_FILE = "/static_files/tmrdao-backend/silo/appsettings.json.template"
 
