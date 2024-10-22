@@ -15,6 +15,7 @@ aefinder_utils_module = import_module("./src/aeindexer/utils.star")
 aefinder_trmdao_indexer_module = import_module("./src/aeindexer/trmdao_indexer.star")
 aelfnode_module = import_module("./src/aelf-node/aelfnode_launcher.star")
 apphost_module = import_module("./src/aeindexer/apphost_launcher.star")
+tmrdao_backend_silo_module = import_module("./src/tmrdao-backend/silo/silo_launcher.star")
 
 def run(plan, advertised_ip):
     elasticsearch_url = elasticsearch.launch_elasticsearch(plan)
@@ -73,12 +74,13 @@ def run(plan, advertised_ip):
     )
 
     aefinder_utils_module.create_org_and_user(plan, authserver_url, api_url)
-    # Note: confusing usage of app_id and app_name. To avoid confusion, use app_name that aligns with app_id.
+    # Note: confusing usage of app_id and app_name. To avoid confusion, use app_id that aligns with app_name.
     # See: https://github.com/AeFinderProject/aefinder/blob/c1ff566e2c0ea192842d0451dbe92aa4f47ec895/src/AeFinder.Application/Apps/AppService.cs#L61-L78
     app_id = "tomorrowdao_indexer"
     app_name = '"TomorrowDAO Indexer"'
     aefinder_trmdao_indexer_module.create_trmdao_indexer(plan, authserver_url, api_url, app_id, app_name)
 
     aelf_node_url = aelfnode_module.launch_aelf_node(plan, redis_url, rabbitmq_node_names["node_names"])
-    apphost_module.launch_apphost(plan, app_id, aelf_node_url, api_url, mongodb_url, elasticsearch_url, kafka_bootstrap_server_host_port, rabbitmq_node_names["node_names"])
+    app_url = apphost_module.launch_apphost(plan, app_id, aelf_node_url, api_url, mongodb_url, elasticsearch_url, kafka_bootstrap_server_host_port, rabbitmq_node_names["node_names"])
 
+    tmrdao_backend_silo_module.launch_tmrdao_silo(plan, aelf_node_url, app_url, app_id, advertised_ip, redis_url, mongodb_url, elasticsearch_url, kafka_bootstrap_server_host_port, rabbitmq_node_names["node_names"])
