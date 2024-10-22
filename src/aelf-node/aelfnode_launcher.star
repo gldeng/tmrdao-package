@@ -1,6 +1,6 @@
 SERVICE_NAME = "aelf-node"
 IMAGE_NAME = "gldeng/aelf-test-node@sha256:40726dd019a01d51fd186ff7ad694f4f65f24cb1d51c873ab90ac92fc77fe13c"
-APPSETTINGS_TEMPLATE_FILE = "static_files/aelf-node/appsettings.json.template"
+APPSETTINGS_TEMPLATE_FILE = "/static_files/aelf-node/appsettings.json.template"
 
 
 def launch_aelf_node(
