@@ -19,7 +19,7 @@
   },
   "Elasticsearch": {
     "Uris": [
-      "{{ .ElasticSearchUrl }}"
+      "{{ .ElasticsearchUrl }}"
     ],
     "NumberOfShards": 5,
     "NumberOfReplicas": 1
