@@ -21,10 +21,16 @@ def launch_aelf_node(
                     "RabbitMqPort": rabbitmq_service.ports["amqp"].number,
                     "Host": SERVICE_NAME,
                     "Port": port_number,
+                    "PluginSourcesFolder": "/app/plugins",
                 },
             ),
         },
     )
+
+    plugins_artifact_name = plan.upload_files(
+        src = "/static_files/aelf-node/plugins"
+    )
+
     plan.add_service(SERVICE_NAME, ServiceConfig(
         image=IMAGE_NAME,
         ports={
@@ -34,6 +40,7 @@ def launch_aelf_node(
         },
         files={
             "/app/config": artifact_name,
+            "/app/plugins": plugins_artifact_name,
         },
         entrypoint = [
             "/bin/sh", 
