@@ -48,6 +48,8 @@ def launch_tmrdao_silo(
         name = trmdao_indexer_module.APP_VERSION_ARTIFACT_NAME
     )
 
+    final_appsettings_artifact_name = "final_appsettings_for_tmrdao_backend_silo"
+
     result = plan.run_sh(
         run = '''mkdir -p /app/out && \
         VERSION=$(cat /app/app_version/app_version.txt) && \
