@@ -4,7 +4,7 @@ IMAGE_NAME = "gldeng/tomorrowdaoserver.silo:sha-5d1c36e"
 
 APPSETTINGS_TEMPLATE_FILE = "/static_files/tmrdao-backend/silo/appsettings.json.template"
 
-trmdao_indexer_module = import_module("./../aeindexer/tmrdao_indexer_launcher.star")
+trmdao_indexer_module = import_module("/src/aeindexer/trmdao_indexer.star")
 
 def launch_tmrdao_silo(
     plan, 
