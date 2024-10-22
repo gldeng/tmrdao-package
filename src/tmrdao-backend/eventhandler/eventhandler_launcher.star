@@ -7,6 +7,7 @@ trmdao_indexer_module = import_module("/src/aeindexer/trmdao_indexer.star")
 def launch_tmrdao_backend_eventhandler(
     plan,
     aelf_node_url,
+    api_url,
     app_url,
     app_id,
     redis_url,
@@ -19,6 +20,7 @@ def launch_tmrdao_backend_eventhandler(
             "appsettings.json": struct(
                 template=read_file(APPSETTINGS_TEMPLATE_FILE),
                 data={
+                    "ApiUrl": api_url,
                     "AppUrl": app_url,
                     "AppId": app_id,
                     "RedisHostPort": redis_url.split("/")[-1],

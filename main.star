@@ -85,4 +85,4 @@ def run(plan, advertised_ip):
     app_url = apphost_module.launch_apphost(plan, app_id, aelf_node_url, api_url, mongodb_url, elasticsearch_url, kafka_bootstrap_server_host_port, rabbitmq_node_names["node_names"])
 
     tmrdao_backend_silo_module.launch_tmrdao_silo(plan, aelf_node_url, app_url, app_id, advertised_ip, redis_url, mongodb_url, elasticsearch_url, kafka_bootstrap_server_host_port, rabbitmq_node_names["node_names"])
-    tmrdao_backend_eventhandler_module.launch_tmrdao_backend_eventhandler(plan, aelf_node_url, app_url, app_id, redis_url, mongodb_url, elasticsearch_url, kafka_bootstrap_server_host_port)
+    tmrdao_backend_eventhandler_module.launch_tmrdao_backend_eventhandler(plan, aelf_node_url, api_url, app_url, app_id, redis_url, mongodb_url, elasticsearch_url, kafka_bootstrap_server_host_port)
