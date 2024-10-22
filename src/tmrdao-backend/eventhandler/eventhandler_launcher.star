@@ -1,6 +1,6 @@
 
 SERVICE_NAME = "tmrdao-backend-eventhandler"
-IMAGE_NAME = "tmrdao-backend-eventhandler"
+IMAGE_NAME = "gldeng/tomorrowdaoserver.entityeventhandler:sha-5d1c36e"
 APPSETTINGS_TEMPLATE_FILE = "/static_files/tmrdao-backend/eventhandler/appsettings.json.template"
 trmdao_indexer_module = import_module("/src/aeindexer/trmdao_indexer.star")
 
