@@ -1,4 +1,5 @@
 
+SERVICE_NAME = "tmrdao-backend-eventhandler"
 IMAGE_NAME = "tmrdao-backend-eventhandler"
 APPSETTINGS_TEMPLATE_FILE = "/static_files/tmrdao-backend/eventhandler/appsettings.json.template"
 trmdao_indexer_module = import_module("/src/aeindexer/trmdao_indexer.star")
