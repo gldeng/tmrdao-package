@@ -29,8 +29,8 @@ def launch_aelf_node(
         image=IMAGE_NAME,
         ports={
             "http": PortSpec(number=port_number),
-            "p2p": PortSpec(number=6801),
-            "grpc": PortSpec(number=5001),
+            # "p2p": PortSpec(number=6801),
+            # "grpc": PortSpec(number=5001),
         },
         files={
             "/app/config": artifact_name,
