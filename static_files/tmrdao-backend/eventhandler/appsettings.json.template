@@ -1,0 +1,256 @@
+{
+    "Orleans": {
+        "ClusterId": "TmrwDaoSiloCluster",
+        "ServiceId": "TmrwDaoOrleansBasicService",
+        "MongoDBClient": "{{ .MongoDbUrl }}",
+        "DataBase": "TMRWDAOServerOrleansDB"
+    },
+    "GraphQL": {
+        "Configuration": "{{ .AppUrl }}/{{ .AppId }}/__APP_VERSION__/graphql",
+        "PortkeyConfiguration": "https://dapp-aa-portkey-test.portkey.finance/Portkey_V2_DID/"
+    },
+    "ConnectionStrings": {
+        "Default": "{{ .MongoDbUrl }}TomorrowDAOServer"
+    },
+    "Redis": {
+        "Configuration": "{{ .RedisHostPort }}"
+    },
+    "StringEncryption": {
+        "DefaultPassPhrase": "OMWRv34uBzzEa2ic"
+    },
+    "Kafka": {
+        "Connections": {
+            "Default": {
+                "BootstrapServers": "{{ .KafkaHostPort }}"
+            }
+        },
+        "Consumer": {
+            "SocketTimeoutMs": 5000,
+            "AutoCommitIntervalMs": 2000
+        },
+        "EventBus": {
+            "GroupId": "TomorrowDAOServerGroup",
+            "TopicName": "TomorrowDAOServerTopic"
+        }
+    },
+    "ElasticUris": {
+        "Uris": [
+            "{{ .ElasticsearchUrl }}"
+        ]
+    },
+    "Serilog": {
+        "MinimumLevel": {
+            "Default": "Debug",
+            "Override": {
+                "Default": "Warning",
+                "System": "Warning",
+                "Microsoft": "Warning"
+            }
+        },
+        "WriteTo": [
+            {
+                "Name": "Console",
+                "Args": {
+                    "outputTemplate": "[{Timestamp:yyyy-MM-dd HH:mm:ss.fff}{Offset:zzz}][{Level:u3}] [{SourceContext}] {Message}{NewLine}{Exception}"
+                }
+            }
+        ]
+    },
+    "IndexSetting": {
+        "NumberOfShards": 5,
+        "NumberOfReplicas": 1,
+        "IndexPrefix": "TomorrowDAOServer"
+    },
+    "WorkerSettings": {
+        "ProposalSync": {
+            "TimePeriod": 30000,
+            "OpenSwitch": true
+        },
+        "ProposalExpired": {
+            "TimePeriod": 60000,
+            "OpenSwitch": true
+        },
+        "DAOSync": {
+            "TimePeriod": 30000,
+            "OpenSwitch": true
+        },
+        "BPInfoUpdate": {
+            "TimePeriod": 600000,
+            "OpenSwitch": true
+        },
+        "ProposalNewUpdate": {
+            "TimePeriod": 30000,
+            "OpenSwitch": true
+        },
+        "HighCouncilMemberSync": {
+            "TimePeriod": 30000,
+            "OpenSwitch": true
+        },
+        "TokenPriceUpdate": {
+            "TimePeriod": 300000,
+            "OpenSwitch": true
+        },
+        "ProposalNumUpdate": {
+            "TimePeriod": 600000,
+            "OpenSwitch": true
+        },
+        "VoteRecordSync": {
+            "TimePeriod": 3000,
+            "OpenSwitch": true
+        },
+        "VoteWithdrawSync": {
+            "TimePeriod": 3000,
+            "OpenSwitch": true
+        },
+        "TopInviterGenerate": {
+            "TimePeriod": 3000,
+            "OpenSwitch": false
+        }
+    },
+    "WorkerLastHeight": {
+        "DAOSync": {
+            "tDVW": 141437100
+        }
+    },
+    "TomorrowDAO": {
+        "Chains": "AELF"
+    },
+    "Api": {
+        "ChainNodeApis": {
+            "AELF": "{{ .AelfNodeUrl }}"
+        }
+    },
+    "Hangfire": {
+        "ConnectionString": "{{ .MongoDbUrl }}TomorrowDAOServer"
+    },
+    "QueryContractOption": {
+        "QueryContractInfoList": [
+            {
+                "ChainId": "tDVW",
+                "PrivateKey": "1111111111111111111111111111111111111111111111111111111111111111",
+                "ConsensusContractAddress": "2KPUA5wG78nnNmK9JsRWbFiEFUEfei9WKniZuKaVziDKZRwchM",
+                "ElectionContractAddress": "2akycoQt8nYSQbarup4tTJYxQ4SzdKbwBfBCcCF9yqWYtMXt9j",
+                "GovernanceContractAddress": "2sJ8MDufVDR3V8fDhBPUKMdP84CUf1oJroi9p8Er1yRvMp3fq7"
+            }
+        ]
+    },
+    "WorkerReRunProposalOptions": {
+        "ReRunProposalIds": [
+            "3f4e9194624749bc5c15d9ab98b9210284e3a47c79fd73efb434b230bf57d2c8"
+        ],
+        "ChainId": "tDVW"
+    },
+    "DaoAlias": {
+        "CharReplacements": {
+            " ": "-",
+            "&": "and",
+            "@": "at"
+        },
+        "FilteredChars": [
+            "?",
+            "!",
+            "#",
+            "$",
+            "%",
+            "^",
+            "*",
+            "(",
+            ")",
+            "=",
+            "<",
+            ">",
+            "{",
+            "}",
+            ":",
+            "[",
+            "]",
+            "/",
+            ",",
+            "\\",
+            ";",
+            "\"",
+            "'",
+            "`",
+            "+",
+            "|"
+        ]
+    },
+    "IndexerOptions": {
+        "BaseUrl": {
+            "AELF": "{{ .ApiUrl }}"
+        },
+        "UseNewIndexer": true
+    },
+    "Chains": {
+        "ChainInfos": {
+            "AELF": {
+                "BaseUrl": "{{ .AelfNodeUrl }}",
+                "IsMainChain": true,
+                "ContractAddress": {
+                    "AElf.ContractNames.Treasury": "xxx"
+                }
+            },
+            "tDVW": {
+                "BaseUrl": "{{ .AelfNodeUrl }}",
+                "IsMainChain": false,
+                "ContractAddress": {
+                    "AElf.ContractNames.Treasury": "xxx"
+                }
+            }
+        },
+        "PrivateKeyForCallTx": "1111111111111111111111111111111111111111111111111111111111111111",
+        "TokenImageRefreshDelaySeconds": 300
+    },
+    "TokenPrice": {
+        "BaseUrl": "http://price-server:8013",
+        "PopularSymbols": [],
+        "AetherLinkSymbols": [
+            "ELF",
+            "USDT"
+        ],
+        "AwakenSymbols": [
+            "ELEPHANT-1"
+        ],
+        "ApiKey": "dao-testnet"
+    },
+    "Exchange": {
+        "DataExpireSeconds": 300,
+        "Binance": {
+            "BaseUrl": "https://data-api.binance.vision",
+            "Block429Seconds": 300
+        },
+        "Okx": {
+            "BaseUrl": "https://aws.okx.com"
+        },
+        "Awaken": {
+            "BaseUrl": "https://test-app.awaken.finance"
+        }
+    },
+    "CoinGecko": {
+        "CoinIdMapping": {
+            "ELF": "aelf",
+            "USDT": "tether"
+        },
+        "BaseUrl": "https://api.coingecko.com/api/v3",
+        "ApiKey": ""
+    },
+    "Explorer": {
+        "BaseUrl": {
+            "AELF": "https://explorer-test.aelf.io",
+            "tDVV": "https://tdvv-explorer.aelf.io",
+            "tDVW": "https://explorer-test-side02.aelf.io"
+        }
+    },
+    "Ranking": {
+        "DaoIds": [
+            "318f6c0edd089bab291b51559f6bcedec8a6963afc0a69637bbbd04e22aa3f41"
+        ],
+        "DescriptionPattern": "",
+        "DescriptionBegin": "##GameRanking:",
+        "ReferralDomain": "https://aa-portkey-test.portkey.finance",
+        "AllReferralActiveTime": [
+            "1726099200000,1727366400000",
+            "1727514000000,1727518800000"
+        ]
+    }
+}
