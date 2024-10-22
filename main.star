@@ -14,6 +14,7 @@ aefinder_api_module = import_module("./src/aefinder/api/api_launcher.star")
 aefinder_utils_module = import_module("./src/aeindexer/utils.star")
 aefinder_trmdao_indexer_module = import_module("./src/aeindexer/trmdao_indexer.star")
 aelfnode_module = import_module("./src/aelf-node/aelfnode_launcher.star")
+apphost_module = import_module("./src/aeindexer/apphost_launcher.star")
 
 def run(plan, advertised_ip):
     elasticsearch_url = elasticsearch.launch_elasticsearch(plan)
@@ -77,3 +78,4 @@ def run(plan, advertised_ip):
     aefinder_trmdao_indexer_module.create_trmdao_indexer(plan, authserver_url, api_url, "tomorrowdao_indexer", '"TomorrowDAO Indexer"')
 
     aelf_node_url = aelfnode_module.launch_aelf_node(plan, redis_url, rabbitmq_node_names["node_names"])
+    aefinder_trmdao_indexer_module.launch_apphost(plan, aelf_node_url, mongodb_url, elasticsearch_url, kafka_bootstrap_server_host_port, rabbitmq_node_names["node_names"])
