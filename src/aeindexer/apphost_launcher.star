@@ -42,7 +42,7 @@ def launch_apphost(
     result = plan.run_sh(
         run = '''mkdir -p /app/out && \
         VERSION=$(cat /app/app_version/app_version.txt) && \
-        jq --arg version \"$VERSION\" '.AppInfo.Version = $version' -i /app/raw/appsettings.json > /app/out/appsettings.json
+        jq --arg version "$VERSION" '.AppInfo.Version = $version' /app/raw/appsettings.json > /app/out/appsettings.json \
         ''',
         files={
             "/app/raw": raw_appsettings_artifact_name,
