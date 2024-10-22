@@ -5,6 +5,7 @@ trmdao_indexer_module = import_module("./trmdao_indexer.star")
 
 def launch_apphost(
     plan,
+    app_id,
     aelf_node_url,
     api_url,
     mongodb_url,
@@ -28,6 +29,7 @@ def launch_apphost(
                     "RabbitMqHost": rabbitmq_service.hostname,
                     "RabbitMqPort": rabbitmq_service.ports["amqp"].number,
                     "Port": port_number,
+                    "AppId": app_id,
                 },
             ),
         },
