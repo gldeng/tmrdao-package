@@ -13,6 +13,7 @@ aefinder_authserver_module = import_module("./src/aefinder/authserver/authserver
 aefinder_api_module = import_module("./src/aefinder/api/api_launcher.star")
 aefinder_utils_module = import_module("./src/aeindexer/utils.star")
 aefinder_trmdao_indexer_module = import_module("./src/aeindexer/trmdao_indexer.star")
+aelfnode_module = import_module("./src/aelf-node/aelfnode_launcher.star")
 
 def run(plan, advertised_ip):
     elasticsearch_url = elasticsearch.launch_elasticsearch(plan)
@@ -74,3 +75,5 @@ def run(plan, advertised_ip):
     # Note: confusing usage of app_id and app_name. To avoid confusion, use app_name that aligns with app_id.
     # See: https://github.com/AeFinderProject/aefinder/blob/c1ff566e2c0ea192842d0451dbe92aa4f47ec895/src/AeFinder.Application/Apps/AppService.cs#L61-L78
     aefinder_trmdao_indexer_module.create_trmdao_indexer(plan, authserver_url, api_url, "tomorrowdao_indexer", '"TomorrowDAO Indexer"')
+
+    aelf_node_url = aelfnode_module.launch_aelf_node(plan, redis_url, rabbitmq_node_names["node_names"])
