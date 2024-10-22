@@ -4,6 +4,7 @@ IMAGE_NAME = "gldeng/tomorrowdaoserver.silo:sha-5d1c36e"
 
 APPSETTINGS_TEMPLATE_FILE = "/static_files/tmrdao-backend/silo/appsettings.json.template"
 
+trmdao_indexer_module = import_module("./../indexer/indexer_launcher.star")
 
 def launch_tmrdao_silo(
     plan, 
@@ -40,6 +41,11 @@ def launch_tmrdao_silo(
                 },
             ),
         },
+    )
+
+
+    app_version_artifact = plan.get_files_artifact(
+        name = trmdao_indexer_module.APP_VERSION_ARTIFACT_NAME
     )
 
     result = plan.run_sh(
