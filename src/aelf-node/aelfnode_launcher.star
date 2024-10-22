@@ -41,4 +41,4 @@ def launch_aelf_node(
             "cp /app/config/* /app/ && cat /app/appsettings.json && dotnet AElf.Launcher.dll"
         ],
     ))
-    return "http://{host}:{port}".format(host=SERVICE_NAME, port=api_port)
+    return "http://{host}:{port}".format(host=SERVICE_NAME, port=port_number)
