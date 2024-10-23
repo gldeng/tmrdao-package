@@ -2,6 +2,11 @@
   "ConnectionStrings": {
     "Default": "{{ .MongoDbUrl }}TomorrowDAOServer"
   },
+  "ElasticUris": {
+    "Uris": [
+        "{{ .ElasticsearchUrl }}"
+    ]
+  },
   "OpenIddict": {
     "Applications": {
       "TomorrowDAOServer_Web": {
