@@ -29,7 +29,7 @@ def launch_tmrdao_backend_authserver(
                     "AppId": app_id,
                     "Host": SERVICE_NAME,
                     "Port": port,
-                    "RedisHostPort": redis_host_port,
+                    "RedisHostPort": redis_url.split("/")[-1],
                     "MongoDbUrl": mongodb_url,
                     "ElasticsearchUrl": elasticsearch_url,
                     "RabbitMqHost": rabbitmq_service.hostname,
