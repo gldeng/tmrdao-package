@@ -4,7 +4,7 @@ IMAGE_NAME = "gldeng/tomorrowdaoserver.httpapi.host:sha-9746165"
 APPSETTINGS_TEMPLATE_FILE = "/static_files/tmrdao-backend/api/appsettings.json.template"
 FINAL_APPSSETTINGS_ARTIFACT_NAME = "final_appsettings_for_tmrdao_backend_api"
 
-trmdao_indexer_module = import_module("/src/tmrdao-backend/indexer/indexer_launcher.star")
+trmdao_indexer_module = import_module("/src/aeindexer/trmdao_indexer.star")
 
 def launch_tmrdao_backend_api(
     plan,
