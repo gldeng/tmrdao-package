@@ -10,7 +10,7 @@ PROTOCOL_NAME = "mongodb"
 
 def run(plan, args):
     service_name = args.get(NAME_ARG, "mongodb")
-    image = args.get(IMAGE_ARG, "mongo:6.0.5")
+    image = args.get(IMAGE_ARG, "mongo:8.0.1")
     user = args.get(USER_ARG, "")
     password = args.get(PASSWORD_ARG, "")
     env_var_overrides = args.get(ENV_VARS_ARG, {})
