@@ -1,23 +1,24 @@
 
-SERVICE_NAME = "tmrdao-backend-api"
-IMAGE_NAME = "gldeng/tomorrowdaoserver.httpapi.host:sha-9746165"
-APPSETTINGS_TEMPLATE_FILE = "/static_files/tmrdao-backend/api/appsettings.json.template"
-FINAL_APPSSETTINGS_ARTIFACT_NAME = "final_appsettings_for_tmrdao_backend_api"
+SERVICE_NAME = "tmrdao-backend-authserver"
+IMAGE_NAME = "gldeng/tomorrowdaoserver.authserver:sha-b15e398"
+APPSETTINGS_TEMPLATE_FILE = "/static_files/tmrdao-backend/authserver/appsettings.json.template"
+FINAL_APPSSETTINGS_ARTIFACT_NAME = "final_appsettings_for_tmrdao_backend_authserver"
 
 trmdao_indexer_module = import_module("/src/aeindexer/trmdao_indexer.star")
 
-def launch_tmrdao_backend_api(
+def launch_tmrdao_backend_authserver(
     plan,
-    backend_authserver_url,
-    aelf_node_url,
-    app_url,
-    app_id,
+    aelf_node_url, 
+    app_url, 
+    app_id,    
     redis_url,
     mongodb_url,
     elasticsearch_url,
-    kafka_host_port,
-    port_number=5011,
+    rabbitmq_node_names,
+    port=8011
 ):
+    rabbitmq_service = plan.get_service(rabbitmq_node_names[0])
+
     raw_appsettings_artifact_name = plan.render_templates(
         config = {
             "appsettings.json": struct(
@@ -26,21 +27,22 @@ def launch_tmrdao_backend_api(
                     "AelfNodeUrl": aelf_node_url,
                     "AppUrl": app_url,
                     "AppId": app_id,
-                    "AuthServerUrl": backend_authserver_url,
-                    "RedisHostPort": redis_url.split("/")[-1],
+                    "Host": SERVICE_NAME,
+                    "Port": port,
+                    "RedisHostPort": redis_host_port,
                     "MongoDbUrl": mongodb_url,
                     "ElasticsearchUrl": elasticsearch_url,
-                    "KafkaHostPort": kafka_host_port,
-                    "Port": port_number,
+                    "RabbitMqHost": rabbitmq_service.hostname,
+                    "RabbitMqPort": rabbitmq_service.ports["amqp"].number,
                 },
             ),
         },
     )
 
+
     app_version_artifact = plan.get_files_artifact(
         name = trmdao_indexer_module.APP_VERSION_ARTIFACT_NAME
     )
-
 
     result = plan.run_sh(
         run = '''mkdir -p /app/out && \
@@ -58,16 +60,17 @@ def launch_tmrdao_backend_api(
 
     config = ServiceConfig(
         image = IMAGE_NAME,
-        ports = {
-            "http": PortSpec(number=port_number)
-        },
         files={
             "/app/config": result.files_artifacts[0],
+        },
+        ports={
+            "http": PortSpec(number=port),
         },
         entrypoint = [
             "/bin/sh", 
             "-c", 
-            "cp /app/config/appsettings.json /app/appsettings.json && cat /app/appsettings.json && dotnet /app/TomorrowDAOServer.HttpApi.Host.dll"
+            "cp /app/config/appsettings.json /app/appsettings.json && cat /app/appsettings.json && dotnet /app/TomorrowDAOServer.AuthServer.dll"
         ],
     )
     plan.add_service(SERVICE_NAME, config)
+    return "http://{host}:{port}".format(host=SERVICE_NAME, port=port)

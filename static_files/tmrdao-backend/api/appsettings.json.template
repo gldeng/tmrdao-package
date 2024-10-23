@@ -35,7 +35,7 @@
         "Configuration": "{{ .RedisHostPort }}"
     },
     "AuthServer": {
-        "Authority": "http://authserver:8011",
+        "Authority": "{{ .AuthServerUrl }}",
         "RequireHttpsMetadata": "false",
         "SwaggerClientId": "TomorrowDAOServer_Swagger",
         "SwaggerClientSecret": "1q2w3e*"
