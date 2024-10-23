@@ -16,7 +16,7 @@
     "IssuerUri": "http://{{ .Host }}:{{ .Port }}"
   },
   "ConnectionStrings": {
-    "Default": "{{ .MongoDbUrl }}/TomorrowDAOServer"
+    "Default": "{{ .MongoDbUrl }}TomorrowDAOServer"
   },
   "RabbitMQ": {
     "Connections": {
