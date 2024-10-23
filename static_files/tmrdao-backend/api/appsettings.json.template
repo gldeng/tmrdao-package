@@ -1,0 +1,402 @@
+{
+    "ServiceName": "HttpApi.Host",
+    "Kestrel": {
+        "EndPoints": {
+            "Http": {
+                "Url": "http://*:{{ .Port }}/"
+            }
+        }
+    },
+    "Serilog": {
+        "MinimumLevel": {
+            "Default": "Debug",
+            "Override": {
+                "Default": "Warning",
+                "System": "Warning",
+                "Microsoft": "Warning"
+            }
+        },
+        "WriteTo": [
+            {
+                "Name": "Console",
+                "Args": {
+                    "outputTemplate": "[{Timestamp:yyyy-MM-dd HH:mm:ss.fff}{Offset:zzz}][{Level:u3}] [{SourceContext}] {Message}{NewLine}{Exception}"
+                }
+            }
+        ]
+    },
+    "App": {
+        "CorsOrigins": "https://*.TomorrowDAOServer.com,http://127.0.0.1:4200,http://localhost:3000,https://test.tmrwdao.com"
+    },
+    "ConnectionStrings": {
+        "Default": "{{ .MongoDbUrl }}TomorrowDAOServer"
+    },
+    "Redis": {
+        "Configuration": "{{ .RedisUrl }}"
+    },
+    "AuthServer": {
+        "Authority": "http://authserver:8011",
+        "RequireHttpsMetadata": "false",
+        "SwaggerClientId": "TomorrowDAOServer_Swagger",
+        "SwaggerClientSecret": "1q2w3e*"
+    },
+    "StringEncryption": {
+        "DefaultPassPhrase": "ne82qa105PUbcHu0U"
+    },
+    "Settings": {
+        "Abp.Account.IsSelfRegistrationEnabled": false
+    },
+    "Orleans": {
+        "ClusterId": "TmrwDaoSiloCluster",
+        "ServiceId": "TmrwDaoOrleansBasicService",
+        "MongoDBClient": "{{ .MongoDbUrl }}",
+        "DataBase": "TMRWDAOServerOrleansDB",
+        "GatewayAddress": "{{ .SiloHostPort }}"
+    },
+    "Kafka": {
+        "Connections": {
+            "Default": {
+                "BootstrapServers": "{{ .KafkaHostPort }}"
+            }
+        },
+        "Producer": {
+            "MessageTimeoutMs": 30000,
+            "MessageSendMaxRetries": 3,
+            "SocketTimeoutMs": 5000
+        },
+        "Consumer": {
+            "SocketTimeoutMs": 5000,
+            "AutoCommitIntervalMs": 2000
+        },
+        "EventBus": {
+            "GroupId": "TomorrowDAOServerGroup",
+            "TopicName": "TomorrowDAOServerTopic"
+        }
+    },
+    "ElasticUris": {
+        "Uris": [
+            "{{ .ElasticsearchUrl }}"
+        ]
+    },
+    "IndexSetting": {
+        "NumberOfShards": 5,
+        "NumberOfReplicas": 1,
+        "IndexPrefix": "TomorrowDAOServer"
+    },
+    "GraphQL": {
+        "Configuration": "{{ .AppUrl }}/{{ .AppId }}/__APP_VERSION__/graphql",
+        "PortkeyConfiguration": "https://dapp-aa-portkey-test.portkey.finance/Portkey_V2_DID/PortKeyIndexerCASchema/graphql"
+    },
+    "Explorer": {
+        "BaseUrl": {
+            "AELF": "https://explorer-test.aelf.io",
+            "tDVV": "https://tdvv-explorer.aelf.io",
+            "tDVW": "https://explorer-test-side02.aelf.io"
+        }
+    },
+    "NetworkDao": {
+        "CurrentTermMiningRewardCacheSeconds": 60,
+        "PopularSymbols": [
+            "ELF",
+            "USDT",
+            "USDC",
+            "BNB",
+            "ETH",
+            "BTC"
+        ]
+    },
+    "Chains": {
+        "ChainInfos": {
+            "AELF": {
+                "BaseUrl": "{{ .AelfNodeUrl }}",
+                "IsMainChain": true,
+                "ContractAddress": {
+                    "CaAddress": "238X6iw1j8YKcHvkDYVtYVbuYk2gJnK8UoNpVCtssynSpVC8hb",
+                    "AElf.ContractNames.Treasury": "KNdM6U6PyPsgyena8rPHTbCoMrkrALhxAy1b8Qx2cgi4169xr"
+                }
+            },
+            "tDVW": {
+                "BaseUrl": "{{ .AelfNodeUrl }}",
+                "IsMainChain": false,
+                "ContractAddress": {
+                    "CaAddress": "238X6iw1j8YKcHvkDYVtYVbuYk2gJnK8UoNpVCtssynSpVC8hb",
+                    "TreasuryContractAddress": "3FdTVXDuBMVAsXJ598aTm3GifQQey5ahFsonjhanTLs4qnukT",
+                    "AElf.ContractNames.Token": "ASh2Wt7nSEmYqnGxPPzp4pnVDU4uhj1XW9Se5VeZcX2UDdyjx",
+                    "VoteContractAddress": "2LpoLYNPAnjiBUozyYwcfaeekxRFehjt6hDR78VKgk47UwkvAv",
+                    "AElf.Contracts.ProxyAccountContract": "C6fn7Cb1QJbgw8FjYHQSoUBbnsii6uKqD5eneQUsDPWpr62kJ"
+                }
+            }
+        },
+        "PrivateKeyForCallTx": "838183d5cf676d17a3aa8daff3c70952d27285101509fcb686c74b7e9d200d62",
+        "TokenImageRefreshDelaySeconds": 300
+    },
+    "AelfApiInfoOptions": {
+        "AelfApiInfos": {
+            "AELF": {
+                "Domain": "{{ .AelfNodeUrl }}"
+            },
+            "tDVV": {
+                "Domain": "{{ .AelfNodeUrl }}"
+            }
+        }
+    },
+    "TokenInfoOptions": {
+        "TokenInfos": {
+            "ELF": {
+                "ImageUrl": "https://portkey-did.s3.ap-northeast-1.amazonaws.com/img/aelf/Coin_ELF.png"
+            },
+            "USDT": {
+                "ImageUrl": "https://portkey-did.s3.ap-northeast-1.amazonaws.com/img/aelf/Coin_USDT.png"
+            },
+            "USDC": {
+                "ImageUrl": "https://portkey-did.s3.ap-northeast-1.amazonaws.com/img/aelf/Coin_USDC.png"
+            },
+            "BNB": {
+                "ImageUrl": "https://portkey-did.s3.ap-northeast-1.amazonaws.com/img/aelf/Coin_BNB.png"
+            },
+            "ETH": {
+                "ImageUrl": "https://portkey-did.s3.ap-northeast-1.amazonaws.com/img/aelf/Coin_ETH.png"
+            },
+            "DAI": {
+                "ImageUrl": "https://portkey-did.s3.ap-northeast-1.amazonaws.com/img/aelf/Coin_DAI.png"
+            }
+        }
+    },
+    "AssetsInfoOptions": {
+        "ImageUrlPrefix": "https://raw.githubusercontent.com/wolfcoming11/assets/master/blockchains/",
+        "ImageUrlSuffix": "/info/logo.png"
+    },
+    "ContractInfoOptions": {
+        "ContractInfos": {
+            "AELF": {
+                "7VdDpXgZd7PDQf4vRSZMy6nLukAviDAyHDs87o7ZUM9FbQQsA": {
+                    "ContractAddress": "7VdDpXgZd7PDQf4vRSZMy6nLukAviDAyHDs87o7ZUM9FbQQsA",
+                    "ContractName": "TreasuryContract",
+                    "FunctionList": [
+                        "CreateTreasury",
+                        "Donate"
+                    ]
+                },
+                "NCi6nskU1A3QTNxcxgo1rnrrtkhVh56jXqj4m2T6uXs5hjsSF": {
+                    "ContractAddress": "NCi6nskU1A3QTNxcxgo1rnrrtkhVh56jXqj4m2T6uXs5hjsSF",
+                    "ContractName": "VoteContract",
+                    "FunctionList": [
+                        "Vote",
+                        "Stake",
+                        "CreateVoteScheme",
+                        "Test"
+                    ]
+                },
+                "defdwNRez3U8WpdVE73p6xuiixeYYJ9hn9ZS5GMSpTHbJ2omt": {
+                    "ContractAddress": "defdwNRez3U8WpdVE73p6xuiixeYYJ9hn9ZS5GMSpTHbJ2omt",
+                    "ContractName": "DAOContract",
+                    "FunctionList": [
+                        "EnableHighCouncil",
+                        "UpdateGovernanceSchemeThreshold",
+                        "RemoveGovernanceScheme",
+                        "SetGovernanceToken",
+                        "SetProposalTimePeriod",
+                        "SetSubsistStatus",
+                        "AddHighCouncilMembers",
+                        "RemoveHighCouncilMembers"
+                    ],
+                    "MultiSigDaoMethodBlacklist": [
+                        "EnableHighCouncil",
+                        "SetGovernanceToken",
+                        "AddHighCouncilMembers",
+                        "RemoveHighCouncilMembers"
+                    ]
+                },
+                "pykr77ft9UUKJZLVq15wCH8PinBSjVRQ12sD1Ayq92mKFsJ1i": {
+                    "ContractAddress": "pykr77ft9UUKJZLVq15wCH8PinBSjVRQ12sD1Ayq92mKFsJ1i",
+                    "ContractName": "AElf.Contracts.Genesis",
+                    "FunctionList": [
+                        "ProposeNewContract",
+                        "ReleaseApprovedContract",
+                        "ReleaseCodeCheckedContract"
+                    ]
+                },
+                "C6fn7Cb1QJbgw8FjYHQSoUBbnsii6uKqD5eneQUsDPWpr62kJ": {
+                    "ContractAddress": "C6fn7Cb1QJbgw8FjYHQSoUBbnsii6uKqD5eneQUsDPWpr62kJ",
+                    "ContractName": "AElf.Contracts.ProxyAccountContract",
+                    "FunctionList": [
+                        "ForwardCall"
+                    ]
+                }
+            }
+        }
+    },
+    "ProposalTagOptions": {
+        "Mapping": {
+            "Update Organization": [
+                "AddMembers",
+                "ChangeMember",
+                "RemoveMembers"
+            ],
+            "DAO Upgrade": [
+                "UploadFileInfos",
+                "RemoveFileInfos",
+                "SetSubsistStatus",
+                "EnableHighCouncil",
+                "DisableHighCouncil",
+                "HighCouncilConfigSet",
+                "SetPermissions"
+            ],
+            "Customized Vote Model": [
+                "Referendum",
+                "HighCouncil"
+            ]
+        }
+    },
+    "ChainOptions": {
+        "PrivateKeyForCallTx": "",
+        "ChainInfos": {
+            "AELF": {
+                "BaseUrl": "{{ .AelfNodeUrl }}",
+                "IsMainChain": true,
+                "ContractAddress": {
+                    "tDVW": {
+                        "AElf.ContractNames.Treasury": "KNdM6U6PyPsgyena8rPHTbCoMrkrALhxAy1b8Qx2cgi4169xr"
+                    }
+                }
+            }
+        }
+    },
+    "QueryContractOption": {
+        "QueryContractInfoList": [
+            {
+                "ChainId": "AELF",
+                "PrivateKey": "1111111111111111111111111111111111111111111111111111111111111111",
+                "ConsensusContractAddress": "pGa4e5hNGsgkfjEGm72TEvbF7aRDqKBd4LuXtab4ucMbXLcgJ",
+                "ElectionContractAddress": "ugE15RDZs36kutC5yLdR2iGC2D7o5WFW98vDvJ76FJcYDKCbz",
+                "GovernanceContractAddress": "j5c9dv4ird82fbcBiaHvBys4m3qZFaYnxPKUgDpkhc7nsbvaa"
+            }
+        ]
+    },
+    "Api": {
+        "ChainNodeApis": {
+            "AELF": "{{ .AelfNodeUrl }}"
+        }
+    },
+    "TestDao": {
+        "FilteredDaoNames": [
+            "optimize DAO",
+            "Offline DAO"
+        ],
+        "TopDaoNames": [
+            "Network DAO",
+            "New Treasury DAO",
+            "Deploy Contract DAO"
+        ],
+        "VerifiedTopDaoNames": {
+            "Gold": [
+                "Network DAO"
+            ],
+            "Blue": [
+                "New Treasury DAO",
+                "Deploy Contract DAO",
+                "Telegram Apps DAO"
+            ]
+        }
+    },
+    "CoinGecko": {
+        "CoinIdMapping": {
+            "ELF": "aelf",
+            "USDT": "tether"
+        },
+        "BaseUrl": "https://api.coingecko.com/api/v3",
+        "ApiKey": ""
+    },
+    "Exchange": {
+        "DataExpireSeconds": 300,
+        "Binance": {
+            "BaseUrl": "https://data-api.binance.vision",
+            "Block429Seconds": 300
+        },
+        "Okx": {
+            "BaseUrl": "https://aws.okx.com"
+        }
+    },
+    "Telegram": {
+        "AllowedCrawlUsers": [
+            "T66MamG2sZL9LSYAvQ45SWvfFtQEEXhGxsJuPexby4MNsXXWT",
+            "ks8ro2q42cHoiyHkXfzuu772DnpCghrPjy7kntRXrwqost8JL",
+            "YeCqKprLBGbZZeRTkN1FaBLXsetY8QFotmVKqo98w9K6jK2PY",
+            "2BTDXDTGP6ZVa4aEP5CrgafF9DNWSzU2ssjQiyhsfEpoRHn4RR"
+        ]
+    },
+    "DaoAlias": {
+        "CharReplacements": {
+            " ": "-",
+            "&": "and",
+            "@": "at"
+        },
+        "FilteredChars": [
+            "?",
+            "!",
+            "#",
+            "$",
+            "%",
+            "^",
+            "*",
+            "(",
+            ")",
+            "=",
+            "<",
+            ">",
+            "{",
+            "}",
+            ":",
+            "[",
+            "]",
+            "/",
+            ",",
+            "\\",
+            ";",
+            "\"",
+            "'",
+            "`",
+            "+",
+            "|"
+        ]
+    },
+    "TransferToken": {
+        "SenderAccount": "4a6160edc654b3632d25fed0388d4ca2b0b5d9d1ba00e78d314df32e16d619a0",
+        "SupportedSymbol": [
+            "TOMORROWPASSTEST-1"
+        ],
+        "SymbolDecimal": {
+            "TOMORROWPASSTEST-1": 0
+        }
+    },
+    "Ranking": {
+        "DaoIds": [
+            "318f6c0edd089bab291b51559f6bcedec8a6963afc0a69637bbbd04e22aa3f41"
+        ],
+        "AllReferralActiveTime": [
+            "1726099200000,1727366400000",
+            "1727514000000,1727518800000"
+        ],
+        "ReferralPointsAddressList": [
+            "EjkHWAx7Q1pFhcwUpBP5WcNMreKZjWgZYpykMofRNu1yxkeJK",
+            "QMdGYLUYws471zyCSteunWbQN9sP86TFiGJRcciqXbiyB5S2i"
+        ]
+    },
+    "HubCommonOptions": {
+        "DelayMaps": {
+            "tDVW_Group_Points": 1000
+        },
+        "SkipCheckEqual": false,
+        "Mock": false
+    },
+    "Emoji": {
+        "Smile": "😊"
+    },
+    "UserOptions": {
+        "UserSourceList": [
+            "Twitter",
+            "Blog",
+            "Weibo"
+        ]
+    }
+}

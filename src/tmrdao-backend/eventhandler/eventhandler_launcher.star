@@ -2,6 +2,8 @@
 SERVICE_NAME = "tmrdao-backend-eventhandler"
 IMAGE_NAME = "gldeng/tomorrowdaoserver.entityeventhandler:sha-9746165"
 APPSETTINGS_TEMPLATE_FILE = "/static_files/tmrdao-backend/eventhandler/appsettings.json.template"
+FINAL_APPSSETTINGS_ARTIFACT_NAME = "final_appsettings_for_tmrdao_backend_eventhandler"
+
 trmdao_indexer_module = import_module("/src/aeindexer/trmdao_indexer.star")
 
 def launch_tmrdao_backend_eventhandler(
@@ -38,8 +40,6 @@ def launch_tmrdao_backend_eventhandler(
         name = trmdao_indexer_module.APP_VERSION_ARTIFACT_NAME
     )
 
-    final_appsettings_artifact_name = "final_appsettings_for_tmrdao_backend_eventhandler"
-
     result = plan.run_sh(
         run = '''mkdir -p /app/out && \
         VERSION=$(cat /app/app_version/app_version.txt) && \
@@ -50,7 +50,7 @@ def launch_tmrdao_backend_eventhandler(
             "/app/app_version": app_version_artifact,
         },
         store= [
-            StoreSpec(src = "/app/out/appsettings.json", name = final_appsettings_artifact_name)
+            StoreSpec(src = "/app/out/appsettings.json", name = FINAL_APPSSETTINGS_ARTIFACT_NAME)
         ]
     )
 

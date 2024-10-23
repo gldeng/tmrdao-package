@@ -1,51 +1,44 @@
-SERVICE_NAME = "tmrdao-backend-silo"
-IMAGE_NAME = "gldeng/tomorrowdaoserver.silo:sha-9746165"
-APPSETTINGS_TEMPLATE_FILE = "/static_files/tmrdao-backend/silo/appsettings.json.template"
-FINAL_APPSSETTINGS_ARTIFACT_NAME = "final_appsettings_for_tmrdao_backend_silo"
 
-trmdao_indexer_module = import_module("/src/aeindexer/trmdao_indexer.star")
+SERVICE_NAME = "tmrdao-backend-api"
+IMAGE_NAME = "gldeng/tomorrowdaoserver.httpapi.host:sha-9746165"
+APPSETTINGS_TEMPLATE_FILE = "/static_files/tmrdao-backend/api/appsettings.json.template"
+FINAL_APPSSETTINGS_ARTIFACT_NAME = "final_appsettings_for_tmrdao_backend_api"
 
-def launch_tmrdao_silo(
-    plan, 
+trmdao_indexer_module = import("/src/tmrdao-backend/indexer/indexer_launcher.star")
+
+def launch_tmrdao_backend_api(
+    plan,
     aelf_node_url,
     app_url,
     app_id,
-    advertised_ip,
     redis_url,
     mongodb_url,
     elasticsearch_url,
     kafka_host_port,
-    rabbitmq_node_names,
-    gateway_port=20011,
-    silo_port=10011
+    port_number=5011,
 ):
-    rabbitmq_service = plan.get_service(rabbitmq_node_names[0])
-
     raw_appsettings_artifact_name = plan.render_templates(
         config = {
             "appsettings.json": struct(
                 template=read_file(APPSETTINGS_TEMPLATE_FILE),
                 data={
+                    "AelfNodeUrl": aelf_node_url,
                     "AppUrl": app_url,
                     "AppId": app_id,
-                    "AdvertisedIP": advertised_ip,
-                    "GatewayPort": gateway_port,
-                    "SiloPort": silo_port,
                     "RedisHostPort": redis_url.split("/")[-1],
                     "MongoDbUrl": mongodb_url,
                     "ElasticsearchUrl": elasticsearch_url,
-                    "RabbitMqHost": rabbitmq_service.hostname,
-                    "RabbitMqPort": rabbitmq_service.ports["amqp"].number,
-                    "AelfNodeUrl": aelf_node_url,
+                    "KafkaHostPort": kafka_host_port,
+                    "Port": port_number,
                 },
             ),
         },
     )
 
-
     app_version_artifact = plan.get_files_artifact(
         name = trmdao_indexer_module.APP_VERSION_ARTIFACT_NAME
     )
+
 
     result = plan.run_sh(
         run = '''mkdir -p /app/out && \
@@ -66,18 +59,10 @@ def launch_tmrdao_silo(
         files={
             "/app/config": result.files_artifacts[0],
         },
-        ports={
-            "gateway": PortSpec(number=gateway_port),
-            "silo": PortSpec(number=silo_port),
-        },
-        public_ports={
-            "gateway": PortSpec(number=gateway_port),
-            "silo": PortSpec(number=silo_port),
-        },
         entrypoint = [
             "/bin/sh", 
             "-c", 
-            "cp /app/config/appsettings.json /app/appsettings.json && cat /app/appsettings.json && dotnet /app/TomorrowDAOServer.Silo.dll"
+            "cp /app/config/appsettings.json /app/appsettings.json && cat /app/appsettings.json && dotnet /app/TomorrowDAOServer.HttpApi.Host.dll"
         ],
     )
     plan.add_service(SERVICE_NAME, config)
