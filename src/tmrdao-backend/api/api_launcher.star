@@ -57,7 +57,7 @@ def launch_tmrdao_backend_api(
     config = ServiceConfig(
         image = IMAGE_NAME,
         ports = {
-            "http": PortSpec(port = port_number)
+            "http": PortSpec(number=port_number)
         },
         files={
             "/app/config": result.files_artifacts[0],
