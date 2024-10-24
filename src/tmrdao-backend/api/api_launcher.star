@@ -71,3 +71,4 @@ def launch_tmrdao_backend_api(
         ],
     )
     plan.add_service(SERVICE_NAME, config)
+    return "http://{}:{}".format(SERVICE_NAME, port_number)

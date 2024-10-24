@@ -92,4 +92,5 @@ def run(plan, advertised_ip):
     tmrdao_backend_silo_module.launch_tmrdao_silo(plan, aelf_node_url, app_url, app_id, advertised_ip, redis_url, mongodb_url, elasticsearch_url, kafka_bootstrap_server_host_port, rabbitmq_node_names["node_names"])
     tmrdao_backend_eventhandler_module.launch_tmrdao_backend_eventhandler(plan, aelf_node_url, api_url, app_url, app_id, redis_url, mongodb_url, elasticsearch_url, kafka_bootstrap_server_host_port)
     backend_authserver_url = tmrdao_backend_authserver_module.launch_tmrdao_backend_authserver(plan, aelf_node_url, app_url, app_id, redis_url, mongodb_url, elasticsearch_url, rabbitmq_node_names["node_names"])
-    tmrdao_backend_api_module.launch_tmrdao_backend_api(plan, backend_authserver_url, aelf_node_url, app_url, app_id, redis_url, mongodb_url, elasticsearch_url, kafka_bootstrap_server_host_port)
+    backend_api_url = tmrdao_backend_api_module.launch_tmrdao_backend_api(plan, backend_authserver_url, aelf_node_url, app_url, app_id, redis_url, mongodb_url, elasticsearch_url, kafka_bootstrap_server_host_port)
+    nginx_url = tmrdao_backend_nginx_module.launch_nginx(plan, backend_api_url, backend_authserver_url)
