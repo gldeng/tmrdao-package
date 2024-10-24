@@ -20,7 +20,7 @@ tmrdao_backend_authserver_module = import_module("./src/tmrdao-backend/authserve
 tmrdao_backend_silo_module = import_module("./src/tmrdao-backend/silo/silo_launcher.star")
 tmrdao_backend_eventhandler_module = import_module("./src/tmrdao-backend/eventhandler/eventhandler_launcher.star")
 tmrdao_backend_api_module = import_module("./src/tmrdao-backend/api/api_launcher.star")
-
+tmrdao_backend_nginx_module = import_module("./src/tmrdao-backend/nginx/nginx_launcher.star")
 
 def run(plan, advertised_ip):
     elasticsearch_url = elasticsearch.launch_elasticsearch(plan)
