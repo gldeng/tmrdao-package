@@ -8,8 +8,8 @@ def launch_nginx(plan, api_url, auth_server_url):
             "nginx.conf": struct(
                 template=read_file(NGINX_CONF_TEMPLATE_FILE),
                 data={
-                    "ApiUrl": api_url,
-                    "AuthServerUrl": auth_server_url,
+                    "ApiUrl": api_url.replace("http://", ""),
+                    "AuthServerUrl": auth_server_url.replace("http://", ""),
                 },
             ),
         },
@@ -20,7 +20,7 @@ def launch_nginx(plan, api_url, auth_server_url):
             "http": PortSpec(number = 80, transport_protocol = "TCP"),
         },
         # Update the entrypoint to use the custom configuration file
-        entrypoint=["nginx", "-g", "daemon off;", "-c", "/config/nginx.conf"],
+        entrypoint=["/docker-entrypoint.sh", "nginx", "-c", "/config/nginx.conf"],
         files = {
             "/config": conf_artifact_name,
         },

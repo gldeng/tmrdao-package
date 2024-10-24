@@ -1,10 +1,12 @@
+daemon off;
+
 http {
     upstream api_service {
-        server {{ .ApiUrl }} resolve;
+        server {{ .ApiUrl }};
     }
 
     upstream auth_service {
-        server {{ .AuthServerUrl }} resolve;
+        server {{ .AuthServerUrl }};
     }
 
     server {
