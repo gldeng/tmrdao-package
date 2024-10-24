@@ -1,6 +1,6 @@
 
 SERVICE_NAME = "tmrdao-backend-nginx"
-IMAGE_NAME = "nginx:latest"
+IMAGE_NAME = "nginx:1.27.2"
 NGINX_CONF_TEMPLATE_FILE = "/static_files/tmrdao-backend/nginx/nginx.conf.template"
 
 def launch_nginx(plan, api_url, auth_server_url):
@@ -20,8 +20,9 @@ def launch_nginx(plan, api_url, auth_server_url):
         ports = {
             "http": PortSpec(number = 80, transport_protocol = "TCP"),
         },
+        entrypoint=["/bin/sh", "-c", "cp /config /etc/nginx/nginx.conf && ./docker-entrypoint.sh"],
         files = {
-            "/etc/nginx/nginx.conf": conf_artifact_name,
+            "/config": conf_artifact_name,
         },
     )
 
