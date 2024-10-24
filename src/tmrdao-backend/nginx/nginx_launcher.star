@@ -20,7 +20,7 @@ def launch_nginx(plan, api_url, auth_server_url):
         ports = {
             "http": PortSpec(number = 80, transport_protocol = "TCP"),
         },
-        entrypoint=["/bin/sh", "-c", "cp /config/* /etc/nginx/ && ./docker-entrypoint.sh"],
+        entrypoint=["./docker-entrypoint.sh nginx -c /config/nginx.conf"],
         files = {
             "/config": conf_artifact_name,
         },
