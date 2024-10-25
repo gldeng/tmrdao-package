@@ -1,6 +1,6 @@
 
 SERVICE_NAME = "tmrdao-backend-api"
-IMAGE_NAME = "gldeng/tomorrowdaoserver.httpapi.host:sha-22587de"
+IMAGE_NAME = "gldeng/tomorrowdaoserver.httpapi.host:sha-b6f854c"
 APPSETTINGS_TEMPLATE_FILE = "/static_files/tmrdao-backend/api/appsettings.json.template"
 FINAL_APPSSETTINGS_ARTIFACT_NAME = "final_appsettings_for_tmrdao_backend_api"
 
