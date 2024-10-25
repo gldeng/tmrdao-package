@@ -1,5 +1,5 @@
 
-IMAGE_NAME = "gldeng/tomorrowdaoserver.dbmigrator:sha-054a34e"
+IMAGE_NAME = "gldeng/tomorrowdaoserver.dbmigrator:sha-00bde7a"
 APPSETTINGS_TEMPLATE_FILE = "/static_files/tmrdao-backend/dbmigrator/appsettings.json.template"
 
 def run_tmrdao_backend_dbmigrator(plan, mongodb_url, elasticsearch_url):
