@@ -1,6 +1,6 @@
 
 SERVICE_NAME = "tmrdao-backend-authserver"
-IMAGE_NAME = "gldeng/tomorrowdaoserver.authserver:sha-d81bf0a"
+IMAGE_NAME = "gldeng/tomorrowdaoserver.authserver:sha-31f10e1"
 APPSETTINGS_TEMPLATE_FILE = "/static_files/tmrdao-backend/authserver/appsettings.json.template"
 FINAL_APPSSETTINGS_ARTIFACT_NAME = "final_appsettings_for_tmrdao_backend_authserver"
 

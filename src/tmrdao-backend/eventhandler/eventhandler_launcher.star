@@ -1,6 +1,6 @@
 
 SERVICE_NAME = "tmrdao-backend-eventhandler"
-IMAGE_NAME = "gldeng/tomorrowdaoserver.entityeventhandler:sha-d81bf0a"
+IMAGE_NAME = "gldeng/tomorrowdaoserver.entityeventhandler:sha-31f10e1"
 APPSETTINGS_TEMPLATE_FILE = "/static_files/tmrdao-backend/eventhandler/appsettings.json.template"
 FINAL_APPSSETTINGS_ARTIFACT_NAME = "final_appsettings_for_tmrdao_backend_eventhandler"
 
