@@ -7,7 +7,8 @@ def launch_aelf_node(
     plan, 
     redis_url,
     rabbitmq_node_names,
-    port_number=8000
+    port_number=8000,
+    port_is_public=False
 ):
     rabbitmq_service = plan.get_service(rabbitmq_node_names[0])
 
@@ -31,6 +32,10 @@ def launch_aelf_node(
         src = "/static_files/aelf-node/plugins"
     )
 
+    public_ports = {}
+    if port_is_public:
+        public_ports["http"] = PortSpec(number=port_number)
+
     plan.add_service(SERVICE_NAME, ServiceConfig(
         image=IMAGE_NAME,
         ports={
@@ -38,6 +43,7 @@ def launch_aelf_node(
             # "p2p": PortSpec(number=6801),
             # "grpc": PortSpec(number=5001),
         },
+        public=public_ports,
         files={
             "/app/config": artifact_name,
             "/app/plugins": plugins_artifact_name,
