@@ -25,7 +25,7 @@ tmrdao_initialize_module = import_module("./src/scripts/intialize.star")
 
 def run(plan, advertised_ip):
     elasticsearch_url = elasticsearch.launch_elasticsearch(plan)
-    kibana.launch_kibana(plan, elasticsearch_url, "/kibana")
+    kibana.launch_kibana(plan, elasticsearch_url)
     redis_info = redis_module.run(plan)
     redis_url = redis_info.url
     mongodb_info = mongodb_module.run(plan, {})
