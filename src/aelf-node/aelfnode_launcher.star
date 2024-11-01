@@ -43,7 +43,7 @@ def launch_aelf_node(
             # "p2p": PortSpec(number=6801),
             # "grpc": PortSpec(number=5001),
         },
-        public=public_ports,
+        public_ports=public_ports,
         files={
             "/app/config": artifact_name,
             "/app/plugins": plugins_artifact_name,

@@ -24,7 +24,7 @@ def launch_nginx(plan, api_url, auth_server_url, port_is_public=False):
         ports = {
             "http": PortSpec(number = 80, transport_protocol = "TCP"),
         },
-        public = public_ports,
+        public_ports = public_ports,
         # Update the entrypoint to use the custom configuration file
         entrypoint=["/docker-entrypoint.sh", "nginx", "-c", "/config/nginx.conf"],
         files = {
