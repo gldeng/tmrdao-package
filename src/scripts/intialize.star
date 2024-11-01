@@ -16,6 +16,7 @@ def run(plan, aelf_node_url):
         files={
             "/app/config": artifact_name,
         },
+        wait="10m",
         description = "Initialize tomorrowdao-cli"  
     )
 
