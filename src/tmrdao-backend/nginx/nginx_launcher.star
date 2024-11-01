@@ -2,7 +2,7 @@ SERVICE_NAME = "tmrdao-backend-nginx"
 IMAGE_NAME = "nginx:1.27.2"
 NGINX_CONF_TEMPLATE_FILE = "/static_files/tmrdao-backend/nginx/nginx.conf.template"
 
-def launch_nginx(plan, api_url, auth_server_url, port_is_public=False):
+def launch_nginx(plan, api_url, auth_server_url, port_number=8010, port_is_public=False):
     conf_artifact_name = plan.render_templates(
         config = {
             "nginx.conf": struct(
@@ -17,12 +17,12 @@ def launch_nginx(plan, api_url, auth_server_url, port_is_public=False):
 
     public_ports = {}
     if port_is_public:
-        public_ports["http"] = PortSpec(number=80)
+        public_ports["http"] = PortSpec(number=port_number)
 
     config = ServiceConfig(
         image = IMAGE_NAME,
         ports = {
-            "http": PortSpec(number = 80, transport_protocol = "TCP"),
+            "http": PortSpec(number = port_number, transport_protocol = "TCP"),
         },
         public_ports = public_ports,
         # Update the entrypoint to use the custom configuration file
