@@ -21,6 +21,7 @@ tmrdao_backend_silo_module = import_module("./src/tmrdao-backend/silo/silo_launc
 tmrdao_backend_eventhandler_module = import_module("./src/tmrdao-backend/eventhandler/eventhandler_launcher.star")
 tmrdao_backend_api_module = import_module("./src/tmrdao-backend/api/api_launcher.star")
 tmrdao_backend_nginx_module = import_module("./src/tmrdao-backend/nginx/nginx_launcher.star")
+tmrdao_initialize_module = import_module("./src/scripts/intialize.star")
 
 def run(plan, advertised_ip):
     elasticsearch_url = elasticsearch.launch_elasticsearch(plan)
@@ -94,3 +95,5 @@ def run(plan, advertised_ip):
     backend_authserver_url = tmrdao_backend_authserver_module.launch_tmrdao_backend_authserver(plan, aelf_node_url, app_url, app_id, redis_url, mongodb_url, elasticsearch_url, rabbitmq_node_names["node_names"])
     backend_api_url = tmrdao_backend_api_module.launch_tmrdao_backend_api(plan, backend_authserver_url, aelf_node_url, app_url, app_id, redis_url, mongodb_url, elasticsearch_url, kafka_bootstrap_server_host_port)
     nginx_url = tmrdao_backend_nginx_module.launch_nginx(plan, backend_api_url, backend_authserver_url)
+
+    tmrdao_initialize_module.run(plan, aelf_node_url)
