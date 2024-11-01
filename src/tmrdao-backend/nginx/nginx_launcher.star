@@ -8,6 +8,7 @@ def launch_nginx(plan, api_url, auth_server_url, port_number=8010, port_is_publi
             "nginx.conf": struct(
                 template=read_file(NGINX_CONF_TEMPLATE_FILE),
                 data={
+                    "Port": port_number,
                     "ApiUrl": api_url.replace("http://", ""),
                     "AuthServerUrl": auth_server_url.replace("http://", ""),
                 },

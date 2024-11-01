@@ -14,7 +14,7 @@ http {
     }
 
     server {
-        listen 80;
+        listen {{ .Port }};
         server_name localhost;
 
         location /connect/token {
