@@ -1,4 +1,4 @@
-IMAGE_NAME = "gldeng/tomorrowdao-contracts:sha-68ce4cf"
+IMAGE_NAME = "gldeng/tomorrowdao-contracts:sha-3d8d2d7"
 CONFIG_FILE = "/static_files/scripts/config.Development.yaml"
 
 def run(plan, aelf_node_url):
