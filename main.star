@@ -22,6 +22,7 @@ tmrdao_backend_eventhandler_module = import_module("./src/tmrdao-backend/eventha
 tmrdao_backend_api_module = import_module("./src/tmrdao-backend/api/api_launcher.star")
 tmrdao_backend_nginx_module = import_module("./src/tmrdao-backend/nginx/nginx_launcher.star")
 tmrdao_initialize_module = import_module("./src/scripts/intialize.star")
+init_kibana_module = import_module("./src/scripts/init_kibana.star")
 
 def run(plan, advertised_ip):
     elasticsearch_url = elasticsearch.launch_elasticsearch(plan)
@@ -97,3 +98,4 @@ def run(plan, advertised_ip):
     nginx_url = tmrdao_backend_nginx_module.launch_nginx(plan, app_url, backend_api_url, backend_authserver_url, port_is_public=True)
 
     tmrdao_initialize_module.run(plan, aelf_node_url)
+    init_kibana_module.run(plan)
