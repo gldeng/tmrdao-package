@@ -43,8 +43,8 @@ def launch_aefinder_silo(
             "/app/config": artifact_name,
         },
         ports={
-            "gateway": PortSpec(number=gateway_port),
-            "silo": PortSpec(number=silo_port),
+            "gateway": PortSpec(number=gateway_port, wait="10m"),
+            "silo": PortSpec(number=silo_port, wait="10m"),
         },
         public_ports={
             "gateway": PortSpec(number=gateway_port),
