@@ -1,5 +1,5 @@
 SERVICE_NAME = "aefinder-authserver"
-IMAGE_NAME = "gldeng/aefinder.authserver:sha-5682ec0"
+IMAGE_NAME = "gldeng/aefinder.authserver:sha-82977ce"
 APPSETTINGS_TEMPLATE_FILE = "/static_files/aefinder/authserver/appsettings.json.template"
 
 def launch_authserver(plan, mongodb_url, redis_url, authserver_port=8081):

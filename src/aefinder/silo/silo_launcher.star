@@ -1,6 +1,6 @@
 SERVICE_NAME = "aefinder-silo"
 
-IMAGE_NAME = "gldeng/aefinder.silo:sha-5682ec0"
+IMAGE_NAME = "gldeng/aefinder.silo:sha-82977ce"
 
 APPSETTINGS_TEMPLATE_FILE = "/static_files/aefinder/silo/appsettings.json.template"
 

@@ -1,6 +1,6 @@
 
 SERVICE_NAME = "aefinder-entityeventhandler"
-IMAGE_NAME = "gldeng/aefinder.entityeventhandler:sha-5682ec0"
+IMAGE_NAME = "gldeng/aefinder.entityeventhandler:sha-82977ce"
 APPSETTINGS_TEMPLATE_FILE = "/static_files/aefinder/eventhandler/appsettings.json.template"
 
 def launch_eventhandler(

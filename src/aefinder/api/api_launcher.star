@@ -1,6 +1,6 @@
 
 SERVICE_NAME = "aefinder-api"
-IMAGE_NAME = "gldeng/aefinder.httpapi.host:sha-5682ec0"
+IMAGE_NAME = "gldeng/aefinder.httpapi.host:sha-82977ce"
 STATIC_FILES_DIR = "/static_files/aefinder/api"
 APPSETTINGS_TEMPLATE_FILE = "{STATIC_FILES_DIR}/appsettings.json.template".format(STATIC_FILES_DIR=STATIC_FILES_DIR)
 
