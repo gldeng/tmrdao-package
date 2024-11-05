@@ -1,6 +1,6 @@
 
 SERVICE_NAME = "aefinder-blockchain-eventhandler"
-IMAGE_NAME = "gldeng/aefinder.blockchaineventhandler:sha-69382f7"
+IMAGE_NAME = "gldeng/aefinder.blockchaineventhandler:sha-5682ec0"
 APPSETTINGS_TEMPLATE_FILE = "/static_files/aefinder/blockchain_eventhandler/appsettings.json.template"
 
 

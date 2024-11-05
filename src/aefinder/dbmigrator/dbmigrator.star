@@ -1,5 +1,5 @@
 
-IMAGE_NAME = "gldeng/aefinder.dbmigrator:sha-69382f7"
+IMAGE_NAME = "gldeng/aefinder.dbmigrator:sha-5682ec0"
 APPSETTINGS_TEMPLATE_FILE = "/static_files/aefinder/dbmigrator/appsettings.json.template"
 
 def run_dbmigrator(plan, mongodb_url):

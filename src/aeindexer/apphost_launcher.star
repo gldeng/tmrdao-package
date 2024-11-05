@@ -1,6 +1,6 @@
 SERVICE_NAME = "apphost"
 APPSETTINGS_TEMPLATE_FILE = "/static_files/aeindexer/appsettings.json.template"
-IMAGE_NAME = "gldeng/aefinder.app.host:sha-69382f7"
+IMAGE_NAME = "gldeng/aefinder.app.host:sha-5682ec0"
 trmdao_indexer_module = import_module("./trmdao_indexer.star")
 
 def launch_apphost(
