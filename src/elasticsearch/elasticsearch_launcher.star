@@ -20,10 +20,10 @@ def get_config():
         ports = {
             "http": PortSpec(9200)
         },
-        max_memory = 2048,
-        min_memory = 512,
+        max_memory = 3072,
+        min_memory = 2048,
         env_vars = {
-            "ES_JAVA_OPTS": "-Xms512m -Xmx2g",
+            "ES_JAVA_OPTS": "-Xms1g -Xmx1g",
             "network.host": "0.0.0.0",
             "transport.host": "0.0.0.0",
             "http.host": "0.0.0.0",
