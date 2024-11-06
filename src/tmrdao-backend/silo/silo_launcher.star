@@ -1,5 +1,5 @@
 SERVICE_NAME = "tmrdao-backend-silo"
-IMAGE_NAME = "gldeng/tomorrowdaoserver.silo:sha-f913a6c"
+IMAGE_NAME = "gldeng/tomorrowdaoserver.silo:sha-ed76f77"
 APPSETTINGS_TEMPLATE_FILE = "/static_files/tmrdao-backend/silo/appsettings.json.template"
 FINAL_APPSSETTINGS_ARTIFACT_NAME = "final_appsettings_for_tmrdao_backend_silo"
 
@@ -75,7 +75,7 @@ def launch_tmrdao_silo(
             "silo": PortSpec(number=silo_port),
         },
         entrypoint = [
-            "/bin/sh", 
+            "/bin/sh",
             "-c", 
             "cp /app/config/appsettings.json /app/appsettings.json && cat /app/appsettings.json && dotnet /app/TomorrowDAOServer.Silo.dll"
         ],
