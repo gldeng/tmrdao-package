@@ -17,6 +17,11 @@ This is a Kurtosis package for TomorrowDAO backend and other dependency services
    # Run the package with my local IP as the advertised IP
    kurtosis run github.com/gldeng/tmrdao-package "{\"advertised_ip\":\"$ip\"}"
    ```
+## Note
+
+If you are running this on a Mac, ensure that Docker Desktop is configured to use at least 6 CPUs and 10GB of memory.
+
+![Docker Desktop Settings](./images/docker-desktop-settings.png)
 
 <!------------------------ Only links below here -------------------------------->
 
