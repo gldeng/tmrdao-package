@@ -4,7 +4,7 @@ IMAGE_NAME = "gldeng/tomorrowdaoserver.entityeventhandler:sha-ed76f77"
 APPSETTINGS_TEMPLATE_FILE = "/static_files/tmrdao-backend/eventhandler/appsettings.json.template"
 FINAL_APPSSETTINGS_ARTIFACT_NAME = "final_appsettings_for_tmrdao_backend_eventhandler"
 
-trmdao_indexer_module = import_module("/src/aeindexer/trmdao_indexer.star")
+aeindexer_module = import_module("github.com/gldeng/aefinder-package/aeindexer/creator.star")
 
 def launch_tmrdao_backend_eventhandler(
     plan,
@@ -37,7 +37,7 @@ def launch_tmrdao_backend_eventhandler(
 
 
     app_version_artifact = plan.get_files_artifact(
-        name = trmdao_indexer_module.APP_VERSION_ARTIFACT_NAME
+        name = aeindexer_module.APP_VERSION_ARTIFACT_NAME
     )
 
     result = plan.run_sh(

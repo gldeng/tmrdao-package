@@ -3,11 +3,11 @@ IMAGE_NAME = "nginx:1.27.2"
 NGINX_CONF_TEMPLATE_FILE = "/static_files/tmrdao-backend/nginx/nginx.conf.template"
 FINAL_NGINX_CONF_ARTIFACT_NAME = "final_tomorrowdao_backend_nginx_conf"
 
-trmdao_indexer_module = import_module("/src/aeindexer/trmdao_indexer.star")
+aeindexer_module = import_module("github.com/gldeng/aefinder-package/aeindexer/creator.star")
 
 def launch_nginx(plan, indexer_url, api_url, auth_server_url, port_number=8010, port_is_public=False):
     app_version_artifact = plan.get_files_artifact(
-        name = trmdao_indexer_module.APP_VERSION_ARTIFACT_NAME
+        name = aeindexer_module.APP_VERSION_ARTIFACT_NAME
     )
 
     raw_conf_artifact_name = plan.render_templates(
