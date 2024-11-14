@@ -17,14 +17,6 @@ def run(plan, advertised_ip):
         need_kibana=True
     )
     output |= aelf_infra_output
-    aelf_node_output = aelf_node_module.run(
-        plan,
-        with_aefinder_feeder=True,
-        redis_url=aelf_infra_output["redis_url"],
-        rabbitmq_node_hostname=aelf_infra_output["rabbitmq_node_hostname"],
-        rabbitmq_node_port=aelf_infra_output["rabbitmq_node_port"]
-    )
-    output |= aelf_node_output
 
     aefinder_output = aefinder_module.run(
         plan,
@@ -36,6 +28,16 @@ def run(plan, advertised_ip):
         rabbitmq_node_names=aelf_infra_output["rabbitmq_node_names"]
     )
     output |= aefinder_output
+
+    # Run aelf node after aefinder is up so that aefinder can process messages sent from aelf node
+    aelf_node_output = aelf_node_module.run(
+        plan,
+        with_aefinder_feeder=True,
+        redis_url=aelf_infra_output["redis_url"],
+        rabbitmq_node_hostname=aelf_infra_output["rabbitmq_node_hostname"],
+        rabbitmq_node_port=aelf_infra_output["rabbitmq_node_port"]
+    )
+    output |= aelf_node_output
 
     tmrdao_output = tmrdao_module.run(
         plan,
