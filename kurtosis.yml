@@ -4,3 +4,4 @@ description: |-
   Kurtosis package for TMRDAO dev environment.
 replace:
   "github.com/kurtosis-tech/etcd-package": "github.com/kurtosis-tech/etcd-package@b676711151d1309d3a65241e860b1c0a0109121b"
+  "github.com/gldeng/aelf-node-package": "github.com/gldeng/aelf-node-package@7f9af09ffe905aa5e9d1db38cd6451c6c976a2f4"
