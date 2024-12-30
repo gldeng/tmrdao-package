@@ -2,7 +2,7 @@ aelf_infra_module = import_module("github.com/gldeng/aelf-infra-package/main.sta
 aelf_node_module = import_module("github.com/gldeng/aelf-node-package/aelf_node.star")
 aefinder_module = import_module("github.com/gldeng/aefinder-package/aefinder.star")
 tmrdao_module = import_module("/tmrdao.star")
-tmrdao_initialize_module = import_module("/src/scripts/intialize.star")
+tmrdao_initialize_module = import_module("/src/scripts/initialize.star")
 init_kibana_module = import_module("/src/scripts/init_kibana.star")
 
 def run(plan, advertised_ip):
