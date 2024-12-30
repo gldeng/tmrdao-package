@@ -6,7 +6,7 @@ tmrdao_module = import_module("/tmrdao.star")
 tmrdao_initialize_module = import_module("/src/scripts/initialize.star")
 init_kibana_module = import_module("/src/scripts/init_kibana.star")
 
-def run(plan, advertised_ip):
+def run(plan, advertised_ip, public_ip, gateway_token, pinata_jwt, sentry_auth_token):
     output = {}
     aelf_infra_output = aelf_infra_module.run(
         plan,
@@ -52,6 +52,11 @@ def run(plan, advertised_ip):
     tmrdao_output = tmrdao_module.run(
         plan,
         advertised_ip=advertised_ip,
+        public_ip=public_ip,
+        relayer_url=output["zk_vote_relayer_api_url"],
+        gateway_token=gateway_token,
+        pinata_jwt=pinata_jwt,
+        sentry_auth_token=sentry_auth_token,
         authserver_url=output["authserver_url"],
         api_url=output["api_url"],
         aelf_node_url=output["aelf_node_url"],

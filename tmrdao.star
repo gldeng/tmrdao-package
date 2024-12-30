@@ -5,10 +5,12 @@ tmrdao_backend_silo_module = import_module("./src/tmrdao-backend/silo/silo_launc
 tmrdao_backend_eventhandler_module = import_module("./src/tmrdao-backend/eventhandler/eventhandler_launcher.star")
 tmrdao_backend_api_module = import_module("./src/tmrdao-backend/api/api_launcher.star")
 tmrdao_backend_nginx_module = import_module("./src/tmrdao-backend/nginx/nginx_launcher.star")
+tmrdao_frontend_module = import_module("./src/tmrdao_frontend.star")
 
 def run(
     plan,
     advertised_ip,
+    public_ip,
     authserver_url,
     api_url,
     aelf_node_url,
@@ -16,7 +18,11 @@ def run(
     mongodb_url,
     elasticsearch_url,
     kafka_host_port,
-    rabbitmq_node_names
+    rabbitmq_node_names,
+    relayer_url,
+    gateway_token,
+    pinata_jwt,
+    sentry_auth_token,
 ):
     dll_artifact = plan.upload_files(
         src = "/static_files/aeindexer/TomorrowDAOIndexer.dll",
@@ -53,5 +59,18 @@ def run(
     backend_authserver_url = tmrdao_backend_authserver_module.launch_tmrdao_backend_authserver(plan, aelf_node_url, app_url, app_id, redis_url, mongodb_url, elasticsearch_url, rabbitmq_node_names)
     backend_api_url = tmrdao_backend_api_module.launch_tmrdao_backend_api(plan, backend_authserver_url, aelf_node_url, app_url, app_id, redis_url, mongodb_url, elasticsearch_url, kafka_host_port)
     nginx_url = tmrdao_backend_nginx_module.launch_nginx(plan, app_url, backend_api_url, backend_authserver_url, port_is_public=True)
+
+    tmrdao_frontend_url = tmrdao_frontend_module.run(
+        plan,
+        public_ip=public_ip,
+        aelf_node_url=aelf_node_url,
+        api_server_url=backend_api_url,
+        relayer_url=relayer_url,
+        gateway_token=gateway_token,
+        pinata_jwt=pinata_jwt,
+        sentry_auth_token=sentry_auth_token,
+        port=3000
+    )
+    output["tmrdao_frontend_url"] = tmrdao_frontend_url
 
     return output
