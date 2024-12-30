@@ -1,6 +1,7 @@
 aelf_infra_module = import_module("github.com/gldeng/aelf-infra-package/main.star")
 aelf_node_module = import_module("github.com/gldeng/aelf-node-package/aelf_node.star")
 aefinder_module = import_module("github.com/gldeng/aefinder-package/aefinder.star")
+relayer_module = import_module("github.com/gldeng/zk-vote-relayer-package/zkvoterelayer.star")
 tmrdao_module = import_module("/tmrdao.star")
 tmrdao_initialize_module = import_module("/src/scripts/initialize.star")
 init_kibana_module = import_module("/src/scripts/init_kibana.star")
@@ -38,6 +39,15 @@ def run(plan, advertised_ip):
         rabbitmq_node_port=aelf_infra_output["rabbitmq_node_port"]
     )
     output |= aelf_node_output
+
+    relayer_output = relayer_module.run(
+        plan,
+        advertised_ip=advertised_ip,
+        mongodb_url=output["mongodb_url"],
+        redis_url=output["redis_url"],
+        aelf_node_url=output["aelf_node_url"]
+    )
+    output |= relayer_output
 
     tmrdao_output = tmrdao_module.run(
         plan,
