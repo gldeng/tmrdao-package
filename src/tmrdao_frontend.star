@@ -36,11 +36,7 @@ def run(
             "NEXT_PUBLIC_RPC_URL_TDVW": public_aelf_node_url,
             "NEXT_PUBLIC_TX_RELAYER_URL": public_relayer_url,
             "NEXT_PUBLIC_API_SERVER_BASE": public_api_server_url,
-        },
-        entrypoint = [
-            "yarn",
-            "start",
-        ],
+        }
     )
     plan.add_service(SERVICE_NAME, config)
     return "http://{}:{}".format(SERVICE_NAME, port)
