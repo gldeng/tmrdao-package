@@ -21,7 +21,7 @@ def run(
     config = ServiceConfig(
         image=ImageBuildSpec(
             image_name="built-tmrdao-interface",
-            build_context_dir="./frontend",
+            build_context_dir="../frontend",
         ),
         ports={
             "http": PortSpec(number=port),
