@@ -22,6 +22,9 @@ def run(
         image=ImageBuildSpec(
             image_name="built-tmrdao-interface",
             build_context_dir="../frontend",
+            build_args={
+                "APP_ENV": "kurtosisenclave",
+            }
         ),
         ports={
             "http": PortSpec(number=port),
