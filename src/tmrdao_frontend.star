@@ -19,7 +19,10 @@ def run(
     public_api_server_url = "http://{}:{}".format(public_ip, api_server_url.split(":")[-1])
 
     config = ServiceConfig(
-        image = IMAGE_NAME,
+        image=ImageBuildSpec(
+            image_name="built-aelf-node",
+            build_context_dir="./frontend",
+        ),
         ports={
             "http": PortSpec(number=port),
         },
