@@ -1,4 +1,0 @@
-[submodule "frontend"]
-	path = frontend
-	url = git@github.com:gldeng/tomorrowDAO-interface.git
-	branch = gldeng
